@@ -8,5 +8,6 @@
         public string CommentCollectionName { get; set; }
         public string CategoryCollectionName { get; set; }
 
+
     }
 }
