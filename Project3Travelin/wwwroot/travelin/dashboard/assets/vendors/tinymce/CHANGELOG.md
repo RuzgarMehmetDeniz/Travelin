@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - New `editor.options` API to replace the old `editor.settings` and `editor.getParam` APIs #TINY-8206
 - New `editor.annotator.removeAll` API to remove all annotations by name #TINY-8195
-- New `Resource.unload` API to make it possible to unload resources #TINY-8431
+- New `Resource.unload` API to make it possible to unload Resource #TINY-8431
 - New `FakeClipboard` API on the `tinymce` global #TINY-8353
 - New `dispatch()` function to replace the now deprecated `fire()` function in various APIs #TINY-8102
 - New `AutocompleterStart`, `AutocompleterUpdate` and `AutocompleterEnd` events #TINY-8279
@@ -41,7 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New default theme styling for TinyMCE 6 facelift with old skin available as `tinymce-5` and `tinymce-5-dark` #TINY-8373
 - The default height of editor has been increased from `200px` to `400px` to improve the usability of the editor #TINY-6860
 - The upload results returned from the `editor.uploadImages()` API now includes a `removed` flag, reflecting if the image was removed after a failed upload #TINY-7735
-- The `ScriptLoader`, `StyleSheetLoader`, `AddOnManager`, `PluginManager` and `ThemeManager` APIs will now return a `Promise` when loading resources instead of using callbacks #TINY-8325
+- The `ScriptLoader`, `StyleSheetLoader`, `AddOnManager`, `PluginManager` and `ThemeManager` APIs will now return a `Promise` when loading Resource instead of using callbacks #TINY-8325
 - A `ThemeLoadError` event is now fired if the theme fails to load #TINY-8325
 - The `BeforeSetContent` event will now include the actual serialized content when passing in an `AstNode` to the `editor.setContent` API #TINY-7996
 - Improved support for placing the caret before or after noneditable elements within the editor #TINY-8169
