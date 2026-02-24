@@ -4886,11 +4886,11 @@
         if (isString(dep)) {
           return isString(baseUrl) ? {
             prefix: '',
-            resource: dep,
+            Resources: dep,
             suffix: ''
           } : {
             prefix: baseUrl.prefix,
-            resource: dep,
+            Resources: dep,
             suffix: baseUrl.suffix
           };
         } else {
@@ -4901,7 +4901,7 @@
         if (urls[name]) {
           return Promise.resolve();
         }
-        let urlString = isString(addOnUrl) ? addOnUrl : addOnUrl.prefix + addOnUrl.resource + addOnUrl.suffix;
+        let urlString = isString(addOnUrl) ? addOnUrl : addOnUrl.prefix + addOnUrl.Resources + addOnUrl.suffix;
         if (urlString.indexOf('/') !== 0 && urlString.indexOf('://') === -1) {
           urlString = AddOnManager.baseURL + '/' + urlString;
         }
@@ -15112,7 +15112,7 @@
     const blobUriToBlob = url => {
       return new Promise((resolve, reject) => {
         const rejectWithError = () => {
-          reject('Cannot convert ' + url + ' to Blob. Resource might not exist or is inaccessible.');
+          reject('Cannot convert ' + url + ' to Blob. Resources might not exist or is inaccessible.');
         };
         try {
           const xhr = new XMLHttpRequest();
@@ -28872,7 +28872,7 @@
       const resultFns = {};
       const load = (id, url) => {
         const loadErrMsg = `Script at URL "${ url }" failed to load`;
-        const runErrMsg = `Script at URL "${ url }" did not call \`tinymce.Resource.add('${ id }', data)\` within 1 second`;
+        const runErrMsg = `Script at URL "${ url }" did not call \`tinymce.Resources.add('${ id }', data)\` within 1 second`;
         if (tasks[id] !== undefined) {
           return tasks[id];
         } else {
@@ -28901,7 +28901,7 @@
         unload
       };
     };
-    const Resource = create$1();
+    const Resources = create$1();
 
     const create = () => (() => {
       let data = {};
@@ -29002,7 +29002,7 @@
       ThemeManager,
       ModelManager,
       IconManager,
-      Resource,
+      Resources,
       FakeClipboard,
       trim: Tools.trim,
       isArray: Tools.isArray,

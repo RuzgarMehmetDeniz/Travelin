@@ -263,7 +263,7 @@
       return checkRange(str, prefix, 0);
     };
 
-    var global = tinymce.util.Tools.resolve('tinymce.Resource');
+    var global = tinymce.util.Tools.resolve('tinymce.Resources');
 
     const DEFAULT_ID = 'tinymce.plugins.emoticons';
     const option = name => editor => editor.options.get(name);

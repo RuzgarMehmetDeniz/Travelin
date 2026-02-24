@@ -13775,7 +13775,7 @@
       };
     };
 
-    var global$2 = tinymce.util.Tools.resolve('tinymce.Resource');
+    var global$2 = tinymce.util.Tools.resolve('tinymce.Resources');
 
     const isOldCustomEditor = spec => has$2(spec, 'init');
     const renderCustomEditor = spec => {
