@@ -16,7 +16,9 @@ namespace Project3Travelin.Entities
         public DateTime TourDate { get; set; }
         public string DayNight { get; set; }
         public string ImageUrl { get; set; }
-        public string Price { get; set; }
+        public int Price { get; set; }
+        public string MapImage { get; set; }
+
 
     }
 }

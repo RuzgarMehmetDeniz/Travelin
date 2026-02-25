@@ -1,0 +1,12 @@
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace Project3Travelin.ViewComponents.TourViewComponent
+{
+    public class _TourScriptsCompoentPartial:ViewComponent
+    {
+        public IViewComponentResult Invoke()
+        {
+            return View();
+        }
+    }
+}

@@ -25,7 +25,13 @@ namespace Project3Travelin.Controllers
         }
         public async Task<IActionResult> TourList()
         {
-            var values= await _tourService.GetAllTourAsync();
+            var values = await _tourService.GetAllTourAsync();
+            return View(values);
+        }
+        public async Task<IActionResult> TourDetail(string id)
+        {
+            ViewBag.rnd = new Random().Next(600, 1500);
+            var values = await _tourService.GetTourByIdAsync(id);
             return View(values);
         }
     }

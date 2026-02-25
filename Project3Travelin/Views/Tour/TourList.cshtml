@@ -10,6 +10,8 @@
 
     @await Component.InvokeAsync("_TourHeaderComponentPartial")
 
+    @await Component.InvokeAsync("_TourHeaderImageComponentPartial")
+
     @await Component.InvokeAsync("_TourListComponentPartial", new { page = currentPage })
 
     @await Component.InvokeAsync("_TourFooterCompoentPartial")
@@ -26,15 +28,5 @@
         </form>
     </div>
 
+    @await Component.InvokeAsync("_TourScriptsCompoentPartial")
 
-
-    <!-- *Scripts* -->
-    <script src="/travelin/js/jquery-3.5.1.min.js"></script>
-    <script src="/travelin/js/bootstrap.min.js"></script>
-    <script src="/travelin/js/fontawesome.min.js"></script>
-    <script src="/travelin/js/particles.js"></script>
-    <script src="/travelin/js/particlerun.js"></script>
-    <script src="/travelin/js/plugin.js"></script>
-    <script src="/travelin/js/main.js"></script>
-    <script src="/travelin/js/custom-swiper.js"></script>
-    <script src="/travelin/js/custom-nav.js"></script>
