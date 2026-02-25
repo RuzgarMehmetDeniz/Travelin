@@ -1,20 +1,6 @@
 ﻿@model List<ResultTourDto>
 <section class="trending pt-6 pb-0 bg-lgrey">
 	<div class="container">
-		<div class="list-results d-flex align-items-center justify-content-between">
-			<div class="click-menu d-flex align-items-center justify-content-between">
-				<div class="change-list f-active me-2"><a href="tour-list.html"><i class="fa fa-bars rounded"></i></a></div>
-				<div class="change-grid me-2"><a href="tour-grid.html"><i class="fa fa-th rounded"></i></a></div>
-				<div class="sortby d-flex align-items-center justify-content-between ml-2">
-					<select class="niceSelect">
-						<option value="1">Sort By</option>
-						<option value="2">Average rating</option>
-						<option value="3">Price: low to high</option>
-						<option value="4">Price: high to low</option>
-					</select>
-				</div>
-			</div>
-		</div>
 
 		<div class="destination-list">
 			@foreach (var item in Model)
@@ -44,13 +30,13 @@
 									<span class="fa fa-star checked"></span>
 									<span class="fa fa-star checked"></span>
 								</div>
-								<small>200 Reviews</small>
+								<small>200 Yorum</small>
 								<div class="trend-price my-2">
 									<span class="mb-0">From</span>
-									<h3 class="mb-0">$125</h3>
-									<small>Per Adult</small>
+										<h3 class="mb-0">@item.Price </h3>
+									<small>Kişi Başına</small>
 								</div>
-								<a href="tour-single.html" class="nir-btn">View Detail</a>
+								<a href="///" class="nir-btn">Tur Detayı</a>
 							</div>
 						</div>
 					</div>
