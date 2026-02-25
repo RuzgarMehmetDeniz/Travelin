@@ -1,6 +1,7 @@
 ﻿namespace Project3Travelin.Dtos.TourDtos
 {
     public class UpdateTourDto
+
     {
         public string TourId { get; set; }
         public string Title { get; set; }
