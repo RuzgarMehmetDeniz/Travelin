@@ -4,6 +4,7 @@ using Project3Travelin.Dtos.CategoryDtos;
 using Project3Travelin.Dtos.CommentDtos;
 using Project3Travelin.Entities;
 using Project3Travelin.Settings;
+using System.Xml.Linq;
 
 namespace Project3Travelin.Services.CommentServices
 {
@@ -41,6 +42,13 @@ namespace Project3Travelin.Services.CommentServices
         {
             var value = await _CommentCollention.Find(x => x.CommentId == id).FirstOrDefaultAsync();
             return _mapper.Map<GetCommentByIdDto>(value);
+        }
+
+        public async Task<List<Comment>> GetCommentsByTourIdAsync(string tourId)
+        {
+            return await _CommentCollention
+                .Find(c => c.TourId == tourId)
+                .ToListAsync();
         }
 
         public async Task UpdateCommentAsync(UpdateCommentDto updateCommentDto)

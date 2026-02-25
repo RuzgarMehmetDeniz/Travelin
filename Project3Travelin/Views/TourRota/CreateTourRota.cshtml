@@ -1,0 +1,26 @@
+﻿@model CreateTourRotaDto
+
+@{
+    Layout = null;
+}
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-5">
+    <h3>Yorum Gönder</h3>
+
+    <form asp-action="CreateTourRota" method="post">
+
+        <div class="form-group">
+            <label>Tur Adı</label>
+            <input asp-for="TourId" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label>Tur Rota Adı</label>
+            <input asp-for="Name" class="form-control" required />
+        </div>
+
+
+        <button type="submit" class="btn btn-success mt-2">Turu Rotasını Kaydet</button>
+    </form>
+</div>

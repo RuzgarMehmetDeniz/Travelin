@@ -8,6 +8,8 @@ namespace Project3Travelin.Entities
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string TourId { get; set; }
+        public string TourRotaId { get; set; }
+
         public string Title { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
@@ -18,7 +20,7 @@ namespace Project3Travelin.Entities
         public string ImageUrl { get; set; }
         public int Price { get; set; }
         public string MapImage { get; set; }
-
+        public List<Comment> Comments { get; set; }
 
     }
 }

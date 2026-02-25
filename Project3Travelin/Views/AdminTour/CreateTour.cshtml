@@ -107,6 +107,16 @@
                 color: #7c3aed;
             }
 
+            .section-icon.red {
+                background: #fff5f5;
+                color: #e53e3e;
+            }
+
+            .section-icon.teal {
+                background: #e6fffa;
+                color: #0d9488;
+            }
+
         .section-title {
             font-family: var(--font-display);
             font-weight: 700;
@@ -353,6 +363,59 @@
             display: none;
             margin-top: .6rem;
         }
+
+        /* ── PRICE INPUT ─────────────────────────────── */
+        .price-input-wrapper {
+            position: relative;
+        }
+
+        .price-currency {
+            position: absolute;
+            left: .875rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: .85rem;
+            font-weight: 700;
+            color: #2563eb;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .price-input-wrapper .form-control {
+            padding-left: 2.6rem;
+        }
+
+        /* ── MAP PREVIEW ─────────────────────────────── */
+        .map-preview-thumb {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1.5px solid #e2e8f0;
+            display: none;
+            margin-top: .6rem;
+        }
+
+        .map-preview-placeholder {
+            width: 100%;
+            height: 160px;
+            border-radius: 10px;
+            border: 1.5px dashed #e2e8f0;
+            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            margin-top: .6rem;
+            color: #a0aec0;
+            font-size: .78rem;
+        }
+
+            .map-preview-placeholder i {
+                font-size: 1.8rem;
+                color: #cbd5e0;
+            }
 
         /* ── CAPACITY STEPPER ────────────────────────── */
         .stepper {
@@ -810,6 +873,32 @@
                 </div>
             </div>
 
+            <!-- FİYAT BİLGİSİ -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon red"><i class="bi bi-currency-dollar"></i></div>
+                    <div>
+                        <div class="section-title">Fiyat Bilgisi</div>
+                        <div class="section-subtitle">Kişi başı tur ücreti</div>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <div class="field-group">
+                        <label asp-for="Price" class="field-label">
+                            <i class="bi bi-tag-fill" style="color:#a0aec0;font-size:.85rem;"></i>
+                            Fiyat (₺) <span class="required">*</span>
+                        </label>
+                        <div class="price-input-wrapper">
+                            <span class="price-currency">₺</span>
+                            <input asp-for="Price" type="number" min="0" class="form-control" placeholder="0" id="priceInput"
+                                   style="padding-left:2.6rem;" />
+                        </div>
+                        <div class="field-hint"><i class="bi bi-info-circle me-1"></i>Kişi başı fiyatı Türk Lirası (₺) cinsinden girin.</div>
+                        <span asp-validation-for="Price" class="text-danger-field"><i class="bi bi-exclamation-circle"></i><span></span></span>
+                    </div>
+                </div>
+            </div>
+
             <!-- GÖRSEL -->
             <div class="form-section">
                 <div class="section-header">
@@ -857,6 +946,39 @@
                                 <i class="bi bi-trash3"></i> Görseli Kaldır
                             </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HARİTA GÖRSELİ -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon teal"><i class="bi bi-map"></i></div>
+                    <div>
+                        <div class="section-title">Harita Görseli</div>
+                        <div class="section-subtitle">Tur güzergahını gösteren harita URL'si</div>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <div class="field-group">
+                        <label asp-for="MapImage" class="field-label">
+                            <i class="bi bi-link-45deg" style="color:#a0aec0;font-size:.85rem;"></i>
+                            Harita Görseli URL
+                        </label>
+                        <div class="input-with-icon">
+                            <i class="bi bi-map input-icon"></i>
+                            <input asp-for="MapImage" type="url" class="form-control" placeholder="https://ornek.com/harita.jpg" id="mapImageInput" />
+                        </div>
+                        <div class="field-hint"><i class="bi bi-info-circle me-1"></i>Tur güzergahını gösteren harita veya konum görseli girin.</div>
+
+                        <!-- Önizleme -->
+                        <img src="" alt="Harita önizleme" class="map-preview-thumb" id="mapPreviewImg" />
+                        <div class="map-preview-placeholder" id="mapPlaceholder">
+                            <i class="bi bi-map"></i>
+                            <span>Harita önizlemesi burada görünecek</span>
+                        </div>
+
+                        <span asp-validation-for="MapImage" class="text-danger-field"><i class="bi bi-exclamation-circle"></i><span></span></span>
                     </div>
                 </div>
             </div>
@@ -939,6 +1061,10 @@
                             <span class="label">Kapasite</span>
                             <span class="value" id="sumCapacity">—</span>
                         </div>
+                        <div class="summary-row">
+                            <span class="label">Fiyat</span>
+                            <span class="value" id="sumPrice">—</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -987,6 +1113,10 @@
                         <li style="font-size:.78rem;color:#718096;display:flex;gap:.5rem;align-items:flex-start;">
                             <i class="bi bi-check2-circle" style="color:#16a34a;margin-top:1px;flex-shrink:0;"></i>
                             Kapasite doluluk oranı rezervasyon panelinden takip edilir.
+                        </li>
+                        <li style="font-size:.78rem;color:#718096;display:flex;gap:.5rem;align-items:flex-start;">
+                            <i class="bi bi-check2-circle" style="color:#16a34a;margin-top:1px;flex-shrink:0;"></i>
+                            Harita görseli güzergahı net şekilde <strong>göstermeli</strong>.
                         </li>
                     </ul>
                 </div>
@@ -1102,6 +1232,31 @@
             previewImg.src = '';
         }
 
+        // ── MAP IMAGE PREVIEW ─────────────────────────
+        const mapImageInput = document.getElementById('mapImageInput');
+        const mapPreviewImg = document.getElementById('mapPreviewImg');
+        const mapPlaceholder = document.getElementById('mapPlaceholder');
+        let mapDebounce;
+
+        mapImageInput.addEventListener('input', function () {
+            clearTimeout(mapDebounce);
+            mapDebounce = setTimeout(function () {
+                const url = mapImageInput.value.trim();
+                if (url) {
+                    mapPreviewImg.src = url;
+                    mapPreviewImg.style.display = 'block';
+                    mapPlaceholder.style.display = 'none';
+                    mapPreviewImg.onerror = function () {
+                        mapPreviewImg.style.display = 'none';
+                        mapPlaceholder.style.display = 'flex';
+                    };
+                } else {
+                    mapPreviewImg.style.display = 'none';
+                    mapPlaceholder.style.display = 'flex';
+                }
+            }, 600);
+        });
+
         // ── STATUS TOGGLE ─────────────────────────────
         function updateStatus(radio) {
             ['statusActive','statusDraft','statusPassive'].forEach(function(id) {
@@ -1121,12 +1276,14 @@
             const date     = document.getElementById('tourDateInput').value;
             const duration = document.getElementById('dayNightHidden').value;
             const capacity = document.getElementById('capacityInput').value;
+            const price    = document.getElementById('priceInput').value;
 
             document.getElementById('sumTitle').textContent    = title    || '—';
             document.getElementById('sumLocation').textContent = (country && city) ? country + ' / ' + city : (country || city || '—');
             document.getElementById('sumDate').textContent     = date ? formatDate(date) : '—';
             document.getElementById('sumDuration').textContent = duration  || '—';
             document.getElementById('sumCapacity').textContent = capacity  ? capacity + ' kişi' : '—';
+            document.getElementById('sumPrice').textContent    = price    ? '₺' + parseInt(price).toLocaleString('tr-TR') : '—';
         }
 
         function formatDate(dateStr) {
@@ -1134,7 +1291,7 @@
             return d + '.' + m + '.' + y;
         }
 
-        ['tourTitleInput','countrySelect','cityInput','tourDateInput','capacityInput'].forEach(function(id) {
+        ['tourTitleInput','countrySelect','cityInput','tourDateInput','capacityInput','priceInput'].forEach(function(id) {
             const el = document.getElementById(id);
             if (el) el.addEventListener('input', updateSummary);
         });
@@ -1156,5 +1313,3 @@
         });
     </script>
 }
-
-

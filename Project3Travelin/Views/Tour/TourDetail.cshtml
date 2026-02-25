@@ -1,6 +1,7 @@
-﻿@model GetTourByIdDto
+﻿@model TourDetailViewModel
 @{
 	Layout = null;
+	int day = 0;
 }
 
 <!DOCTYPE html>
@@ -21,9 +22,9 @@
 						<div id="highlight">
 							<div class="single-full-title border-b mb-2 pb-2">
 								<div class="single-title">
-									<h2 class="mb-1">@Model.Title</h2>
+									<h2 class="mb-1">@Model.Tour.Title</h2>
 									<div class="rating-main d-md-flex align-items-center">
-										<p class="mb-0 me-2"><i class="icon-location-pin"></i>@Model.Country @Model.City</p>
+										<p class="mb-0 me-2"><i class="icon-location-pin"></i>@Model.Tour.Country @Model.Tour.City</p>
 										<div class="rating me-2">
 											<span class="fa fa-star checked"></span>
 											<span class="fa fa-star checked"></span>
@@ -37,108 +38,113 @@
 							</div>
 
 							<div class="description-images mb-4">
-								<img src="@Model.ImageUrl" alt="" class="w-100 rounded">
+								<img src="@Model.Tour.ImageUrl" alt="" class="w-100 rounded">
 							</div>
 
 							<div class="description mb-2">
-								<h4>Description</h4>
-								<p>@Model.Description .</p>
+								<h4>Açıklama</h4>
+								<p>@Model.Tour.Description .</p>
 							</div>
 
 							<div class="tour-includes mb-4">
 								<table>
 									<tbody>
 										<tr>
-											<td><i class="fa fa-clock-o pink mr-1" aria-hidden="true"></i> @Model.DayNight</td>
+											<td><i class="fa fa-clock-o pink mr-1" aria-hidden="true"></i> @Model.Tour.DayNight</td>
 
-											<td><i class="fa fa-users pink mr-1" aria-hidden="true"></i> @Model.Capacity Kişi</td>
+											<td><i class="fa fa-users pink mr-1" aria-hidden="true"></i> @Model.Tour.Capacity Kişi</td>
 
-											<td><i class="fa fa-calendar-check-o pink mr-1" aria-hidden="true"></i> @Model.TourDate.ToString("dd MMM yyyy") </td>
+											<td><i class="fa fa-calendar-check-o pink mr-1" aria-hidden="true"></i> @Model.Tour.TourDate.ToString("dd MMM yyyy") </td>
 										</tr>
 										<tr>
 											<td><i class="fa fa-child pink mr-1" aria-hidden="true"></i> Yaş: 10+ </td>
 
-											<td><i class="fa fa-map-marker pink mr-1" aria-hidden="true"></i> @Model.City </td>
+											<td><i class="fa fa-map-marker pink mr-1" aria-hidden="true"></i> @Model.Tour.City </td>
 
-											<td><i class="fa fa-money pink mr-1" aria-hidden="true"></i> @Model.Price ₺</td>
+											<td><i class="fa fa-money pink mr-1" aria-hidden="true"></i> @Model.Tour.Price ₺</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
+							
+								<div id="iternary" class="accrodion-grp faq-accrodion mb-4" data-grp-name="faq-accrodion">
+								@foreach (var tourrota in Model.TourRotas)
+								{
+									day++;
+									<div class="accrodion ">
+										<div class="accrodion-title rounded">
+											<h5 class="mb-0">
+												<span>@day. Gün : </span>@tourrota.Name
+											</h5>
+										</div>
+									</div>
+								}
+
+								</div>
 
 							<div id="single-map" class="single-map mb-4">
-								<h4>Map</h4>
+								<h4>Harita</h4>
 								<div class="map rounded overflow-hidden">
-									<div style="width: 100%">
-										<iframe class=" rounded overflow-hidden" height="400" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=+(mangal%20bazar)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+									<div style="width: 100%;">
+										<img src="@Model.Tour.MapImage"
+											 alt="Tur Gidilecek Yerler Haritası"
+											 class="rounded overflow-hidden"
+											 style="width: 100%; height: 400px; object-fit: cover;" />
 									</div>
 								</div>
 							</div>
 
 							<!-- blog comment list -->
 							<div id="single-comments" class="single-comments single-box mb-4">
-								<h5 class="border-b pb-2 mb-2">Showing 16 verified guest comments</h5>
-								<div class="comment-box">
-									<div class="comment-image">
-										<img src="images/reviewer/1.jpg" alt="image">
-									</div>
-									<div class="comment-content rounded">
-										<h5 class="mb-1">Helena</h5>
-										<p class="comment-date">April 25, 2022 at 10:46 am</p>
-										<div class="comment-rate">
-											<div class="rating mar-right-15">
-												<span class="fa fa-star checked"></span>
-												<span class="fa fa-star checked"></span>
-												<span class="fa fa-star checked"></span>
-												<span class="fa fa-star checked"></span>
-												<span class="fa fa-star checked"></span>
+								<h5 class="border-b pb-2 mb-2">@Model.Comments.Count Yorum Sayısı</h5>
+								<div class="comment-box d-flex flex-column">
+									@foreach (var comment in Model.Comments)
+									{
+										<div class="comment-content rounded p-3 mb-3 shadow-sm border">
+											<h5 class="mb-1">@comment.Name</h5>
+											<p class="comment-date text-muted small">@comment.CommentDate.ToString("dd MMM yyyy")</p>
+											<div class="comment-rate d-flex align-items-center mb-2">
+												<div class="rating mr-2">
+													@for (int i = 0; i < comment.Score; i++)
+													{
+														<span class="fa fa-star checked text-warning"></span>
+													}
+												</div>
 											</div>
-											<span class="comment-title">The worst hotel ever"</span>
-										</div>
-
-										<p class="comment">Take in the iconic skyline and visit the neighbourhood hangouts that you've only ever seen on TV. Take in the iconic skyline and visit the neighbourhood.</p>
-										<div class="comment-like">
-											<div class="like-title">
-												<a href="#" class="nir-btn">Reply</a>
-											</div>
-											<div class="like-btn pull-right">
-												<a href="#" class="like"><i class="fa fa-thumbs-up"></i></a>
-												<a href="#" class="disike"><i class="fa fa-thumbs-down"></i></a>
+											<span class="comment-title font-weight-bold">@comment.HeadLine</span>
+											<p class="comment mb-2 text-break">@comment.CommentDetail</p>
+											<div class="comment-like text-right">
+												<a href="#" class="like mr-2"><i class="fa fa-thumbs-up"></i></a>
+												<a href="#" class="dislike"><i class="fa fa-thumbs-down"></i></a>
 											</div>
 										</div>
-									</div>
+									}
 								</div>
 							</div>
-
-							<!-- blog review -->
-							<div id="single-add-review" class="single-add-review">
-								<h4>Write a Review</h4>
-								<form>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group mb-2">
-												<input type="text" placeholder="Name">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group mb-2">
-												<input type="email" placeholder="Email">
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="form-group mb-2">
-												<textarea>Comment</textarea>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-btn">
-												<a href="#" class="nir-btn">Submit Review</a>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
 						</div>
+					</div>
+
+					<!-- blog review -->
+					<div id="single-add-review" class="single-add-review">
+						<h4>Yeni Yorum Girişi</h4>
+						<form asp-action="TourDetail" method="post">
+							<!-- TourId'yi CreateCommentDto'ya bağla -->
+							<input type="hidden" asp-for="CreateCommentDto.TourId" value="@Model.Tour.TourId" />
+
+							<div class="form-group mb-2">
+								<input type="text" asp-for="CreateCommentDto.HeadLine" placeholder="Başlık" class="form-control" required>
+							</div>
+
+							<div class="form-group mb-2">
+								<textarea asp-for="CreateCommentDto.CommentDetail" placeholder="Yorum..." class="form-control" required></textarea>
+							</div>
+
+							<div class="form-group mb-2">
+								<input type="number" asp-for="CreateCommentDto.Score" min="1" max="5" class="form-control" placeholder="Puan (1–5)" required>
+							</div>
+
+							<button class="btn btn-success">Gönder</button>
+						</form>
 					</div>
 				</div>
 
@@ -150,6 +156,9 @@
 									<ul id="tabs" class="nav nav-tabs bordernone mb-0">
 										<li class="active">
 											<a data-toggle="tab" href="#highlight" class="rounded box-shadow mb-2 border-all">Tur Başlığı</a>
+										</li>
+										<li >
+											<a data-toggle="tab" href="#iternary" class="rounded box-shadow mb-2 border-all">Gezilcek Yerler</a>
 										</li>
 										<li>
 											<a data-toggle="tab" href="#single-map" class="rounded box-shadow mb-2 border-all">Harita</a>

@@ -1,0 +1,41 @@
+﻿@model CreateCommentDto
+
+@{
+    Layout = null;
+}
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-5">
+    <h3>Yorum Gönder</h3>
+
+    <form asp-action="CreateComment" method="post">
+
+        <div class="form-group">
+            <label>Kullanıcı Adı</label>
+            <input asp-for="Name" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Tour Id</label>
+            <input asp-for="TourId" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Başlık</label>
+            <input asp-for="HeadLine" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Yorum</label>
+            <textarea asp-for="CommentDetail" class="form-control" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Puan (1-5)</label>
+            <input asp-for="Score" type="number" min="1" max="5" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-success mt-2">Yorumu Kaydet</button>
+    </form>
+</div>

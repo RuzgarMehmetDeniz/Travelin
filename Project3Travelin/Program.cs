@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using Project3Travelin.Services.CategoryServices;
 using Project3Travelin.Services.CommentServices;
+using Project3Travelin.Services.TourRotaRota;
+using Project3Travelin.Services.TourRotaService;
 using Project3Travelin.Services.TourServices;
 using Project3Travelin.Settings;
 using System.Reflection;
@@ -10,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ICommentServices, CommentService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ITourService, TourService>();
+builder.Services.AddScoped<ITourRotaServices, TourRotaService>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

@@ -1,8 +1,17 @@
-﻿namespace Project3Travelin.Entities
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace Project3Travelin.Entities
 {
     public class Comment
     {
-        public string CommentId { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }  
+
+        public string CommentId { get; set; }  
+        public string Name { get; set; }
+        public string TourId { get; set; }
         public string HeadLine { get; set; }
         public string CommentDetail { get; set; }
         public int Score { get; set; }
