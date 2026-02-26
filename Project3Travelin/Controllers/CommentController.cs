@@ -22,7 +22,7 @@ namespace Project3Travelin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateComment(CreateCommentDto createCommentDto)
         {
-            createCommentDto.IsStatus= true;
+            createCommentDto.IsStatus= false;
             createCommentDto.CommentDate = DateTime.Now;
             await _commentServices.CreateCommentAsync(createCommentDto);
             return RedirectToAction("CommentList");

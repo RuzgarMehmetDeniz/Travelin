@@ -5,27 +5,84 @@
 				<div class="trend-content-main">
 					<div class="trend-content mb-5 pb-2 px-5">
 						<h5 class="mb-1 theme">Nereye Gideceğini Seç</h5>
-						<h2><a href="detail-fullwidth.html">Hayatını Keşfet, <span class="theme1">İstediğin Her Yere Seyahat Et!</span></a></h2>
-						<p>Dünyanın dört bir yanındaki gizli güzellikleri keşfetmek için şimdi yola çık. Her adımda yeni maceralar, unutulmaz anılar seni bekliyor.</p>
+						<h2>Hayatını Keşfet, <span class="theme1">İstediğin Her Yere Seyahat Et!</span></h2>
+						<p>Dünyanın dört bir yanındaki gizli güzellikleri keşfetmek için şimdi yola çık.</p>
 					</div>
 
-					<!-- Video Butonu -->
 					<div class="video-button text-center position-relative">
 						<div class="call-button text-center">
 							<button type="button" class="play-btn js-video-button"
-									data-video-id="52zmpRT5RFg"
-									data-channel="youtube">
+									data-video-id="52zmpRT5RFg">
 								<i class="fa fa-play bg-blue"></i>
 							</button>
 						</div>
-						<div class="video-figure"></div>
+
+						<!-- VIDEO POPUP -->
+						<div class="video-figure">
+							<div class="video-content">
+								<span class="video-close">×</span>
+								<div class="video-container"></div>
+							</div>
+						</div>
+
 					</div>
 
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="white-overlay"></div>
-	<div class="white-overlay"></div>
-	<div class="section-shape top-inherit bottom-0" style="background-image: url(/travelin/images/shape6.png);"></div>
 </section>
+<style>
+	.video-figure {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.9);
+		z-index: 9999;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.video-content {
+		width: 80%;
+		max-width: 900px;
+		position: relative;
+		margin: auto;
+	}
+
+	.video-container {
+		width: 100%;
+		height: 500px;
+		background: #000;
+		border-radius: 8px;
+		overflow: hidden;
+	}
+
+		.video-container iframe {
+			width: 100%;
+			height: 100%;
+			border: none;
+		}
+
+	.video-close {
+		position: absolute;
+		top: -35px;
+		right: 0;
+		color: #fff;
+		font-size: 32px;
+		font-weight: bold;
+		cursor: pointer;
+	}
+
+	.play-btn {
+		cursor: pointer;
+		transition: 0.3s;
+	}
+
+		.play-btn:hover {
+			transform: scale(1.1);
+		}
+</style>

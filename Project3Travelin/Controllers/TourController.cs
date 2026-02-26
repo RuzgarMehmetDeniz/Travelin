@@ -52,7 +52,11 @@ namespace Project3Travelin.Controllers
             {
                 Tour = tour,
                 Comments = comments,
-                TourRotas = tourrotas
+                TourRotas = tourrotas,
+                CreateCommentDto = new CreateCommentDto
+                {
+                    TourId = id  
+                }
             };
 
             return View(vm);

@@ -1,4 +1,5 @@
 ﻿@model TourDetailViewModel
+
 @{
 	Layout = null;
 	int day = 0;
@@ -127,10 +128,13 @@
 					<!-- blog review -->
 					<div id="single-add-review" class="single-add-review">
 						<h4>Yeni Yorum Girişi</h4>
-						<form asp-action="TourDetail" method="post">
+						<form asp-action="AddComment" method="post">
 							<!-- TourId'yi CreateCommentDto'ya bağla -->
-							<input type="hidden" asp-for="CreateCommentDto.TourId" value="@Model.Tour.TourId" />
+							<input type="hidden" asp-for="CreateCommentDto.TourId" />
 
+							<div class="form-group mb-2">
+								<input type="text" asp-for="CreateCommentDto.Name" placeholder="Adınız" class="form-control" required>
+							</div>
 							<div class="form-group mb-2">
 								<input type="text" asp-for="CreateCommentDto.HeadLine" placeholder="Başlık" class="form-control" required>
 							</div>
@@ -143,7 +147,9 @@
 								<input type="number" asp-for="CreateCommentDto.Score" min="1" max="5" class="form-control" placeholder="Puan (1–5)" required>
 							</div>
 
-							<button class="btn btn-success">Gönder</button>
+							<button type="submit" class="btn btn-success">
+								<i class="fa fa-paper-plane"></i> Gönder
+							</button>
 						</form>
 					</div>
 				</div>
@@ -189,3 +195,11 @@
 
 </body>
 </html>
+<script>
+	$(document).on("click", "#submitComment", function(){
+		var form = $(this).closest("form");
+		$.post(form.attr("action"), form.serialize(), function(){
+			location.reload(); // veya sadece yorum kutusunu güncelle
+		});
+	});
+</script>
