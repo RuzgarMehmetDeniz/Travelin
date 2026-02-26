@@ -15,6 +15,10 @@
         <label>Kategori Icon Url</label>
         <input type="text" asp-for="IconUrl" class="form-control"/>
         <br />
+        <select asp-for="TourId" class="form-control" asp-items="ViewBag.TourList">
+            <option value="">Tur seçiniz</option>
+        </select>
         <button class="btn btn-success">Kategoriyi Kaydet</button>
+
     </form>
 </div>

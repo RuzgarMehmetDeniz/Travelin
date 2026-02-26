@@ -1,7 +1,5 @@
-﻿
-@model List<ResultTourDto>
+﻿@model List<ResultTourDto>
 @{
-    ViewData["Title"] = "Tur Listesi";
     Layout = "~/Views/Shared/_TourLayout.cshtml";
     string q = Context.Request.Query["q"];
     string country = Context.Request.Query["country"];
@@ -311,7 +309,7 @@
             </ol>
         </nav>
     </div>
-    <a href="#" class="btn btn-primary d-flex align-items-center gap-2" style="border-radius:10px;font-size:.875rem;font-weight:600;padding:.55rem 1.1rem;">
+    <a href="/AdminTour/CreateTour/" class="btn btn-primary d-flex align-items-center gap-2" style="border-radius:10px;font-size:.875rem;font-weight:600;padding:.55rem 1.1rem;">
         <i class="bi bi-plus-lg"></i> Yeni Tur Ekle
     </a>
 </div>
@@ -366,7 +364,7 @@
         <div class="title">
             <i class="bi bi-table" style="color:#a0aec0;"></i>
             Tüm Turlar
-            <span class="tour-count">@Model?.Count ?? 0 tur</span>
+            <span class="tour-count">@Model.Count  tur</span>
         </div>
         <div class="d-flex align-items-center gap-2">
             <span style="font-size:.78rem;color:#a0aec0;">Sırala:</span>
@@ -471,19 +469,6 @@
         <!-- PAGINATION -->
         <div class="pagination-wrapper">
             <span class="page-info">@Model.Count tur gösteriliyor</span>
-            <nav aria-label="Sayfalama">
-                <ul class="pagination pagination-sm">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" aria-label="Önceki"><i class="bi bi-chevron-left"></i></a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Sonraki"><i class="bi bi-chevron-right"></i></a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     }
 </div>

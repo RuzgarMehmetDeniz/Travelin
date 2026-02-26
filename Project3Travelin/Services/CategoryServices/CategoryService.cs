@@ -41,6 +41,13 @@ namespace Project3Travelin.Services.CategoryServices
             return _mapper.Map<GetCategoryByIdDto>(value);
         }
 
+        public async Task<List<Category>> GetCategoryByTourIdAsync(string tourId)
+        {
+            return await _categoryCollection
+               .Find(c => c.TourId == tourId)
+               .ToListAsync();
+        }
+
         public async Task UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto)
         {
             var value = _mapper.Map<Category>(updateCategoryDto);

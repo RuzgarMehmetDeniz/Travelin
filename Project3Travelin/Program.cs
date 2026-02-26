@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using Project3Travelin.Services.BookingServices;
 using Project3Travelin.Services.CategoryServices;
 using Project3Travelin.Services.CommentServices;
 using Project3Travelin.Services.TourRotaRota;
@@ -13,6 +14,7 @@ builder.Services.AddScoped<ICommentServices, CommentService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ITourService, TourService>();
 builder.Services.AddScoped<ITourRotaServices, TourRotaService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

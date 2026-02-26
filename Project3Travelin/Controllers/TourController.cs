@@ -3,6 +3,7 @@ using Project3Travelin.Dtos.CommentDtos;
 using Project3Travelin.Dtos.TourDtos;
 using Project3Travelin.Entities;
 using Project3Travelin.Models;
+using Project3Travelin.Services.CategoryServices;
 using Project3Travelin.Services.CommentServices;
 using Project3Travelin.Services.TourRotaService;
 using Project3Travelin.Services.TourServices;
@@ -14,12 +15,14 @@ namespace Project3Travelin.Controllers
         private readonly ITourService _tourService;
         private readonly ICommentServices _commentServices;
         private readonly ITourRotaServices _tourRotaServices;
+        private readonly ICategoryService _categoryService;
 
-        public TourController(ITourService tourService, ICommentServices commentServices, ITourRotaServices tourRotaServices)
+        public TourController(ITourService tourService, ICommentServices commentServices, ITourRotaServices tourRotaServices, ICategoryService categoryService)
         {
             _tourService = tourService;
             _commentServices = commentServices;
             _tourRotaServices = tourRotaServices;
+            _categoryService = categoryService;
         }
 
         public IActionResult CreateTour()
@@ -46,6 +49,7 @@ namespace Project3Travelin.Controllers
             var tour = await _tourService.GetTourByIdAsync(id);
 
             var comments = await _commentServices.GetCommentsByTourIdAsync(id);
+
             var tourrotas = await _tourRotaServices.GetTourRotasByTourIdAsync(id);
 
             var vm = new TourDetailViewModel

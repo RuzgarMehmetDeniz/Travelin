@@ -1,0 +1,109 @@
+﻿@model CreateBookingDto
+
+@{
+	Layout = null;
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<!DOCTYPE html>
+
+@await Component.InvokeAsync("_TourHeadComponentPartial")
+
+@await Component.InvokeAsync("_TourHeaderComponentPartial")
+
+@await Component.InvokeAsync("_TourHeaderImageComponentPartial")
+
+<section class="trending pt-6 pb-0 bg-lgrey">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 mb-4">
+				<div class="payment-book">
+					<div class="booking-box">
+						<div class="customer-information mb-4">
+
+                            <form asp-controller="Booking" asp-action="Index" method="post">
+                                <h5>Rezervasyon Bilgileri</h5>
+
+                                <div class="row">
+
+                                    <!-- Ad -->
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-2">
+                                            <label>Ad</label>
+                                            <input asp-for="Name" class="form-control" placeholder="Adınızı giriniz">
+                                        </div>
+                                    </div>
+
+                                    <!-- Soyad -->
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-2">
+                                            <label>Soyad</label>
+                                            <input asp-for="Surname" class="form-control" placeholder="Soyadınızı giriniz">
+                                        </div>
+                                    </div>
+
+                                    <!-- E-posta -->
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-2">
+                                            <label>E‑posta</label>
+                                            <input asp-for="Email" type="email" class="form-control" placeholder="E‑posta adresinizi giriniz">
+                                        </div>
+                                    </div>
+
+                                    <!-- Telefon -->
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-2">
+                                            <label>Telefon</label>
+                                            <input asp-for="Phone" class="form-control" placeholder="Telefon numaranızı giriniz">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-2">
+                                            <label>Rezervasyon Tarihi</label>
+                                            <input asp-for="BookingDate" type="date" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-2">
+                                            <label>Tur Seçiniz</label>
+                                            <select asp-for="TourId" class="form-control" asp-items="ViewBag.TourList">
+                                                <option value="">Tur seçiniz</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <br />
+                                <button type="submit" class="btn btn-primary">Rezervasyonu Gönder</button>
+                            </form>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+@await Component.InvokeAsync("_TourVideoCompoentPartial")
+
+@await Component.InvokeAsync("_TourOurPartnersCompoentPartial")
+
+@await Component.InvokeAsync("_TourFooterCompoentPartial")
+<div id="back-to-top">
+    <a href="#"></a>
+</div>
+
+<div id="search1">
+    <button type="button" class="close">×</button>
+    <form>
+        <input type="search" value="" placeholder="type keyword(s) here" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+
+@await Component.InvokeAsync("_TourScriptsCompoentPartial")

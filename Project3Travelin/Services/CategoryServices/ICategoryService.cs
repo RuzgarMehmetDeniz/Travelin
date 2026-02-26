@@ -1,5 +1,6 @@
 ﻿
 using Project3Travelin.Dtos.CategoryDtos;
+using Project3Travelin.Entities;
 
 namespace Project3Travelin.Services.CategoryServices
 {
@@ -10,5 +11,6 @@ namespace Project3Travelin.Services.CategoryServices
         Task UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto);
         Task DeleteCategoryAsync(string id);
         Task<GetCategoryByIdDto> GetCategoryByIdAsync(string id);
+        Task<List<Category>> GetCategoryByTourIdAsync(string tourId);
     }
 }

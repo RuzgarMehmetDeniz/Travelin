@@ -6,5 +6,7 @@
         public string CategoryName { get; set; }
         public string IconUrl { get; set; }
         public bool IsStatus { get; set; }
+        public string TourId { get; set; }
+
     }
 }
