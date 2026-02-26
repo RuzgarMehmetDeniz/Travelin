@@ -1,0 +1,384 @@
+﻿@model UpdateCategoryDto
+@{
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+}
+
+@section Styles {
+    <style>
+        .page-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #1a202c;
+            letter-spacing: -.03em;
+            line-height: 1;
+        }
+
+        .breadcrumb {
+            margin: 0;
+            padding: 0;
+            background: none;
+        }
+
+        .breadcrumb-item {
+            font-size: .8rem;
+        }
+
+            .breadcrumb-item a {
+                color: #2563eb;
+                text-decoration: none;
+            }
+
+            .breadcrumb-item.active {
+                color: #718096;
+            }
+
+        .form-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
+            max-width: 700px;
+        }
+
+        .form-card-header {
+            padding: 1.1rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: .95rem;
+            color: #1a202c;
+        }
+
+        .form-card-body {
+            padding: 1.75rem 1.5rem;
+        }
+
+        .form-label {
+            font-size: .78rem;
+            font-weight: 600;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin-bottom: .4rem;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            font-size: .875rem;
+            border: 1px solid #e2e8f0;
+            padding: .55rem .85rem;
+            color: #1a202c;
+            transition: border-color .15s, box-shadow .15s;
+        }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #9333ea;
+                box-shadow: 0 0 0 3px rgba(147,51,234,.1);
+                outline: none;
+            }
+
+        .icon-preview-wrap {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: .6rem;
+        }
+
+        .icon-preview-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: #f3e8ff;
+            border: 2px solid #e9d5ff;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+            .icon-preview-box img {
+                width: 34px;
+                height: 34px;
+                object-fit: contain;
+            }
+
+        .icon-placeholder-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e0);
+            display: grid;
+            place-items: center;
+            color: #a0aec0;
+            font-size: 1.4rem;
+            border: 2px dashed #cbd5e0;
+            flex-shrink: 0;
+        }
+
+        .icon-preview-hint {
+            font-size: .78rem;
+            color: #a0aec0;
+            line-height: 1.5;
+        }
+
+        .status-toggle-wrap {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            padding: .75rem 1rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .form-check-input {
+            width: 2.2em;
+            height: 1.2em;
+            cursor: pointer;
+        }
+
+            .form-check-input:checked {
+                background-color: #9333ea;
+                border-color: #9333ea;
+            }
+
+            .form-check-input:focus {
+                box-shadow: 0 0 0 3px rgba(147,51,234,.15);
+                border-color: #9333ea;
+            }
+
+        .status-label {
+            font-size: .875rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .status-desc {
+            font-size: .78rem;
+            color: #a0aec0;
+        }
+
+        .form-divider {
+            height: 1px;
+            background: #f0f4f8;
+            margin: 1.5rem 0;
+        }
+
+        .form-card-footer {
+            padding: 1.1rem 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: .75rem;
+            background: #f8fafc;
+        }
+
+        .btn-cancel {
+            border-radius: 9px;
+            font-size: .875rem;
+            font-weight: 500;
+            padding: .5rem 1.1rem;
+        }
+
+        .btn-save {
+            border-radius: 9px;
+            font-size: .875rem;
+            font-weight: 600;
+            padding: .5rem 1.4rem;
+            background: #9333ea;
+            border-color: #9333ea;
+        }
+
+            .btn-save:hover {
+                background: #7e22ce;
+                border-color: #7e22ce;
+            }
+
+        .validation-msg {
+            font-size: .75rem;
+            color: #e53e3e;
+            margin-top: .3rem;
+        }
+
+        /* Mevcut değer bilgi kutusu */
+        .current-info {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-size: .75rem;
+            color: #9333ea;
+            background: #fdf4ff;
+            border: 1px solid #e9d5ff;
+            border-radius: 6px;
+            padding: .2rem .6rem;
+            margin-bottom: .5rem;
+        }
+    </style>
+}
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Kategori Güncelle</h1>
+        <nav aria-label="breadcrumb" class="mt-2">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item"><a href="/AdminCategory/CategoryList">Kategoriler</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Güncelle</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- FORM CARD -->
+<div class="form-card">
+    <div class="form-card-header">
+        <i class="bi bi-pencil-square" style="color:#9333ea;"></i>
+        Kategori Bilgilerini Güncelle
+    </div>
+
+    <form asp-action="UpdateCategory" method="post">
+        @Html.AntiForgeryToken()
+
+        <!-- CategoryId hidden -->
+        <input asp-for="CategoryId" type="hidden" />
+
+        <div class="form-card-body">
+
+            <!-- Kategori Adı -->
+            <div class="mb-3">
+                <label asp-for="CategoryName" class="form-label">Kategori Adı</label>
+                <input asp-for="CategoryName" class="form-control" placeholder="Örn: Kültür Turları" />
+                <span asp-validation-for="CategoryName" class="validation-msg"></span>
+            </div>
+
+            <!-- İkon URL -->
+            <div class="mb-3">
+                <label asp-for="IconUrl" class="form-label">İkon URL</label>
+                @if (!string.IsNullOrWhiteSpace(Model.IconUrl))
+                {
+                    <div class="current-info">
+                        <i class="bi bi-check-circle-fill"></i> Mevcut ikon var — değiştirmek için yeni URL girin
+                    </div>
+                }
+                <input asp-for="IconUrl" class="form-control" placeholder="https://example.com/icon.png"
+                       id="iconUrlInput" oninput="previewIcon(this.value)" />
+                <span asp-validation-for="IconUrl" class="validation-msg"></span>
+
+                <div class="icon-preview-wrap">
+                    <div class="icon-preview-box" id="iconPreviewBox"
+                         style="@(!string.IsNullOrWhiteSpace(Model.IconUrl) ? "display:grid;" : "display:none;")">
+                        <img id="iconPreviewImg"
+                             src="@Model.IconUrl" alt="İkon önizleme" />
+                    </div>
+                    <div class="icon-placeholder-box" id="iconPlaceholder"
+                         style="@(!string.IsNullOrWhiteSpace(Model.IconUrl) ? "display:none;" : "display:grid;")">
+                        <i class="bi bi-image"></i>
+                    </div>
+                    <span class="icon-preview-hint">URL girdikçe ikon önizlemesi burada görünür.</span>
+                </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- Tur Seçimi -->
+            <div class="mb-3">
+                <label asp-for="TourId" class="form-label">Tur</label>
+                @if (!string.IsNullOrWhiteSpace(Model.TourTitle))
+                {
+                    <div class="current-info">
+                        <i class="bi bi-map-fill"></i> Mevcut: @Model.TourTitle
+                    </div>
+                }
+                <select asp-for="TourId" class="form-select" id="tourSelect" onchange="setTourTitle(this)">
+                    <option value="">-- Tur Seçiniz --</option>
+                    @if (ViewBag.Tours != null)
+                    {
+                        foreach (var tour in (IEnumerable<ResultTourDto>)ViewBag.Tours)
+                        {
+                            <option value="@tour.TourId"
+                                    data-title="@tour.Title"
+                                    selected="@(tour.TourId == Model.TourId ? "selected" : null)">
+                                @tour.Title
+                            </option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="TourId" class="validation-msg"></span>
+            </div>
+
+            <!-- TourTitle hidden -->
+            <input asp-for="TourTitle" type="hidden" id="tourTitleInput" />
+
+            <div class="form-divider"></div>
+
+            <!-- Durum -->
+            <div class="mb-1">
+                <label class="form-label">Durum</label>
+                <div class="status-toggle-wrap">
+                    <input asp-for="IsStatus" class="form-check-input" type="checkbox"
+                           role="switch" id="isStatusSwitch" />
+                    <div>
+                        <div class="status-label">Kategori Aktif</div>
+                        <div class="status-desc">Kapalıysa kategori sitede görünmez.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-card-footer">
+            <a href="/AdminCategory/CategoryList" class="btn btn-light btn-cancel">
+                <i class="bi bi-x-lg me-1"></i> İptal
+            </a>
+            <button type="submit" class="btn btn-primary btn-save">
+                <i class="bi bi-check-lg me-1"></i> Güncelle
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function previewIcon(url) {
+            const box = document.getElementById('iconPreviewBox');
+            const img = document.getElementById('iconPreviewImg');
+            const placeholder = document.getElementById('iconPlaceholder');
+
+            if (url && url.trim() !== '') {
+                img.src = url;
+                img.onload = () => {
+                    box.style.display = 'grid';
+                    placeholder.style.display = 'none';
+                };
+                img.onerror = () => {
+                    box.style.display = 'none';
+                    placeholder.style.display = 'grid';
+                };
+            } else {
+                box.style.display = 'none';
+                placeholder.style.display = 'grid';
+            }
+        }
+
+        function setTourTitle(select) {
+            const selected = select.options[select.selectedIndex];
+            document.getElementById('tourTitleInput').value = selected.dataset.title ?? '';
+        }
+    </script>
+}
