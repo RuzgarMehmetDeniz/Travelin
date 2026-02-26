@@ -22,6 +22,7 @@ namespace Project3Travelin.Services.BookingServices
         {
             var values = _mapper.Map<Booking>(createBookingDto);
             await _BookingCollection.InsertOneAsync(values);
+
         }
 
         public async Task DeleteBookingAsync(string id)
