@@ -11,5 +11,7 @@ namespace Project3Travelin.Services.CommentServices
         Task DeleteCommentAsync(string id);
         Task<GetCommentByIdDto> GetCommentByIdAsync(string id);
         Task<List<Comment>> GetCommentsByTourIdAsync(string tourId);
+        Task ApproveCommentAsync(string id);
+
     }
 }

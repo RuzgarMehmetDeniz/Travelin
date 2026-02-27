@@ -7,8 +7,8 @@
         public string Surname { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public DateTime BookingDate { get; set; }
-
         public string TourId { get; set; }
+        public string TourTitle { get; set; }
+        public DateTime BookingDate { get; set; }
     }
 }

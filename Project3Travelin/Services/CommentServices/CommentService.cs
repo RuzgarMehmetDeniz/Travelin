@@ -54,8 +54,26 @@ namespace Project3Travelin.Services.CommentServices
         public async Task UpdateCommentAsync(UpdateCommentDto updateCommentDto)
         {
             var value = _mapper.Map<Comment>(updateCommentDto);
-            await _CommentCollention.FindOneAndReplaceAsync(x => x.CommentId == updateCommentDto.CommentId, value);
 
+            // Mevcut belgeyi bulup _id değerini al
+            var existing = await _CommentCollention
+                .Find(x => x.CommentId == updateCommentDto.CommentId)
+                .FirstOrDefaultAsync();
+
+            if (existing != null)
+            {
+                value.Id = existing.Id; // orijinal _id'yi koru
+            }
+
+            var filter = Builders<Comment>.Filter.Eq(x => x.CommentId, updateCommentDto.CommentId);
+            await _CommentCollention.ReplaceOneAsync(filter, value);
+        }
+
+        public async Task ApproveCommentAsync(string id)
+        {
+            var filter = Builders<Comment>.Filter.Eq(x => x.CommentId, id);
+            var update = Builders<Comment>.Update.Set(x => x.IsStatus, true);
+            await _CommentCollention.UpdateOneAsync(filter, update);
         }
     }
 }
