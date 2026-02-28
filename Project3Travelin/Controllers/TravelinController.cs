@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Project3Travelin.Dtos.BookingDtos;
+using Project3Travelin.Dtos.CommentDtos;
+using Project3Travelin.Models;
 using Project3Travelin.Services.BookingServices;
 using Project3Travelin.Services.CategoryServices;
 using Project3Travelin.Services.TourServices;
@@ -11,21 +15,33 @@ namespace Project3Travelin.Controllers
         private readonly ITourService _tourService;
         private readonly ICategoryService _categoryService;
         private readonly IBookingService _bookingService;
+        private readonly IStringLocalizer<Project3Travelin.Resources.SharedResource> _localizer;
 
-        public TravelinController(ITourService tourService, ICategoryService categoryService, IBookingService bookingService)
+        public TravelinController(
+            ITourService tourService,
+            ICategoryService categoryService,
+            IBookingService bookingService,
+            IStringLocalizer<Project3Travelin.Resources.SharedResource> localizer)
         {
             _tourService = tourService;
             _categoryService = categoryService;
             _bookingService = bookingService;
+            _localizer = localizer;
         }
 
         public async Task<IActionResult> Index()
         {
-            var tours = await _tourService.GetAllTourAsync();
-            var categories = await _categoryService.GetAllCategoryAsync();
-            ViewBag.Tours = tours;
-            ViewBag.Categories = categories;
-            return View();
+            var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
+            var heroTitle = _localizer["HeroTitle"];
+            Console.WriteLine($"=== Culture: {culture} | HeroTitle: {heroTitle} ===");
+
+            var model = new HomeViewModel
+            {
+                Tours = await _tourService.GetAllTourAsync(),
+                Categories = await _categoryService.GetAllCategoryAsync(),
+                Comments = new List<ResultCommentDto>()
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -34,6 +50,16 @@ namespace Project3Travelin.Controllers
             await _bookingService.CreateBookingAsync(dto);
             TempData["BookingSuccess"] = "true";
             return RedirectToAction("Index");
+        }
+
+        public IActionResult SetLanguage(string culture, string returnUrl = "/Travelin/Index")
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+            return LocalRedirect(returnUrl);
         }
     }
 }

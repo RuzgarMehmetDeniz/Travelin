@@ -1,5 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
+	<!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+	
 	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
 		<xsd:element name="root" msdata:IsDataSet="true">
 			<xsd:complexType>
@@ -39,54 +98,4 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-
-	<data name="HomePage" xml:space="preserve"><value>Accueil</value></data>
-	<data name="TourList" xml:space="preserve"><value>Liste des Tours</value></data>
-	<data name="TourRoutes" xml:space="preserve"><value>Itinéraires</value></data>
-	<data name="VisaFree" xml:space="preserve"><value>Tours sans Visa</value></data>
-	<data name="Domestic" xml:space="preserve"><value>Tours Nationaux</value></data>
-	<data name="BookNow" xml:space="preserve"><value>Réserver</value></data>
-	<data name="Login" xml:space="preserve"><value>Connexion / Inscription</value></data>
-	<data name="ExploreWorld" xml:space="preserve"><value>Explorer le Monde</value></data>
-	<data name="HeroTitle" xml:space="preserve"><value>Planifiez le Voyage de Vos Rêves!</value></data>
-	<data name="HeroDesc" xml:space="preserve"><value>Vous êtes au bon endroit pour créer des souvenirs inoubliables.</value></data>
-	<data name="SearchNow" xml:space="preserve"><value>Rechercher</value></data>
-	<data name="SelectDestination" xml:space="preserve"><value>Choisir une destination</value></data>
-	<data name="SelectCategory" xml:space="preserve"><value>Choisir une catégorie</value></data>
-	<data name="SelectDuration" xml:space="preserve"><value>Choisir la durée</value></data>
-	<data name="BestTours" xml:space="preserve"><value>Meilleurs Forfaits</value></data>
-	<data name="FeaturedTours" xml:space="preserve"><value>Tours en Vedette</value></data>
-	<data name="Booking" xml:space="preserve"><value>Réservation</value></data>
-	<data name="BookingTitle" xml:space="preserve"><value>Faire une Réservation</value></data>
-	<data name="Name" xml:space="preserve"><value>Prénom</value></data>
-	<data name="Surname" xml:space="preserve"><value>Nom</value></data>
-	<data name="Email" xml:space="preserve"><value>E-mail</value></data>
-	<data name="Phone" xml:space="preserve"><value>Téléphone</value></data>
-	<data name="SelectTour" xml:space="preserve"><value>Choisir un Tour</value></data>
-	<data name="BookingDate" xml:space="preserve"><value>Date de réservation</value></data>
-	<data name="Submit" xml:space="preserve"><value>Réserver</value></data>
-	<data name="Reviews" xml:space="preserve"><value>Avis Clients</value></data>
-	<data name="HappyClients" xml:space="preserve"><value>Nos Clients Satisfaits</value></data>
-	<data name="AboutUs" xml:space="preserve"><value>À Propos</value></data>
-	<data name="Categories" xml:space="preserve"><value>Catégories</value></data>
-	<data name="QuickLinks" xml:space="preserve"><value>Liens Rapides</value></data>
-	<data name="Newsletter" xml:space="preserve"><value>Newsletter</value></data>
-	<data name="Subscribe" xml:space="preserve"><value>S'abonner</value></data>
-	<data name="AllRights" xml:space="preserve"><value>Tous droits réservés.</value></data>
-	<data name="TopDestinations" xml:space="preserve"><value>Meilleures Destinations</value></data>
-	<data name="ExploreDestinations" xml:space="preserve"><value>Explorer les Meilleures Destinations</value></data>
-	<data name="LastMinute" xml:space="preserve"><value>Offres de Dernière Minute</value></data>
-	<data name="TopDeals" xml:space="preserve"><value>Meilleures Offres</value></data>
-	<data name="SpecialOffers" xml:space="preserve"><value>Offres Spéciales &amp; Réductions</value></data>
-	<data name="TourGuides" xml:space="preserve"><value>Guides Touristiques</value></data>
-	<data name="MeetGuides" xml:space="preserve"><value>Rencontrez nos Guides</value></data>
-	<data name="YearsExp" xml:space="preserve"><value>Ans d'Expérience</value></data>
-	<data name="TourPackages" xml:space="preserve"><value>Forfaits Touristiques</value></data>
-	<data name="HappyCustomers" xml:space="preserve"><value>Clients Satisfaits</value></data>
-	<data name="FollowInstagram" xml:space="preserve"><value>Suivre sur Instagram</value></data>
-	<data name="RecentArticles" xml:space="preserve"><value>Articles &amp; Publications Récents</value></data>
-	<data name="BlogOffers" xml:space="preserve"><value>Notre Blog</value></data>
-	<data name="ReadMore" xml:space="preserve"><value>Lire la suite</value></data>
-	<data name="PerPerson" xml:space="preserve"><value>Par personne</value></data>
-	<data name="BookingSuccess" xml:space="preserve"><value>Votre réservation a été reçue avec succès!</value></data>
 </root>
