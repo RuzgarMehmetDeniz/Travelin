@@ -98,4 +98,54 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+	<data name="HomePage" xml:space="preserve"><value>Ana Sayfa</value></data>
+	<data name="TourList" xml:space="preserve"><value>Tur Listesi</value></data>
+	<data name="TourRoutes" xml:space="preserve"><value>Tur Rotaları</value></data>
+	<data name="VisaFree" xml:space="preserve"><value>Vizesiz Turlar</value></data>
+	<data name="Domestic" xml:space="preserve"><value>Yurt İçi Turları</value></data>
+	<data name="BookNow" xml:space="preserve"><value>Rezervasyon Yap</value></data>
+	<data name="Login" xml:space="preserve"><value>Giriş / Kayıt</value></data>
+	<data name="ExploreWorld" xml:space="preserve"><value>Dünyayı Keşfet</value></data>
+	<data name="HeroTitle" xml:space="preserve"><value>Hayalindeki Tatili Planlamaya Başla!</value></data>
+	<data name="HeroDesc" xml:space="preserve"><value>Unutulmaz anılar yaratmak için doğru adrestesiniz.</value></data>
+	<data name="SearchNow" xml:space="preserve"><value>Tur Ara</value></data>
+	<data name="SelectDestination" xml:space="preserve"><value>Destinasyon Seçin</value></data>
+	<data name="SelectCategory" xml:space="preserve"><value>Kategori Seçin</value></data>
+	<data name="SelectDuration" xml:space="preserve"><value>Süre Seçin</value></data>
+	<data name="BestTours" xml:space="preserve"><value>En İyi Tur Paketleri</value></data>
+	<data name="FeaturedTours" xml:space="preserve"><value>Öne Çıkan Turlar</value></data>
+	<data name="Booking" xml:space="preserve"><value>Rezervasyon</value></data>
+	<data name="BookingTitle" xml:space="preserve"><value>Tur Rezervasyonu Yap</value></data>
+	<data name="Name" xml:space="preserve"><value>Ad</value></data>
+	<data name="Surname" xml:space="preserve"><value>Soyad</value></data>
+	<data name="Email" xml:space="preserve"><value>E-posta</value></data>
+	<data name="Phone" xml:space="preserve"><value>Telefon</value></data>
+	<data name="SelectTour" xml:space="preserve"><value>Tur Seçin</value></data>
+	<data name="BookingDate" xml:space="preserve"><value>Rezervasyon Tarihi</value></data>
+	<data name="Submit" xml:space="preserve"><value>Rezervasyon Yap</value></data>
+	<data name="Reviews" xml:space="preserve"><value>Müşteri Yorumları</value></data>
+	<data name="HappyClients" xml:space="preserve"><value>Mutlu Müşterilerimiz</value></data>
+	<data name="AboutUs" xml:space="preserve"><value>Bizi Tanıyın</value></data>
+	<data name="Categories" xml:space="preserve"><value>Kategoriler</value></data>
+	<data name="QuickLinks" xml:space="preserve"><value>Hızlı Linkler</value></data>
+	<data name="Newsletter" xml:space="preserve"><value>Bülten</value></data>
+	<data name="Subscribe" xml:space="preserve"><value>Abone Ol</value></data>
+	<data name="AllRights" xml:space="preserve"><value>Tüm hakları saklıdır.</value></data>
+	<data name="TopDestinations" xml:space="preserve"><value>En İyi Destinasyonlar</value></data>
+	<data name="ExploreDestinations" xml:space="preserve"><value>En İyi Destinasyonları Keşfet</value></data>
+	<data name="LastMinute" xml:space="preserve"><value>Son Dakika Fırsatları</value></data>
+	<data name="TopDeals" xml:space="preserve"><value>En İyi Fırsatlar</value></data>
+	<data name="SpecialOffers" xml:space="preserve"><value>Özel Teklif &amp; İndirim Paketleri</value></data>
+	<data name="TourGuides" xml:space="preserve"><value>Tur Rehberleri</value></data>
+	<data name="MeetGuides" xml:space="preserve"><value>Mükemmel Rehberlerimizle Tanışın</value></data>
+	<data name="YearsExp" xml:space="preserve"><value>Yıllık Deneyim</value></data>
+	<data name="TourPackages" xml:space="preserve"><value>Tur Paketi</value></data>
+	<data name="HappyCustomers" xml:space="preserve"><value>Mutlu Müşteri</value></data>
+	<data name="FollowInstagram" xml:space="preserve"><value>Instagram'da Takip Edin</value></data>
+	<data name="RecentArticles" xml:space="preserve"><value>Son Yazılar &amp; Haberler</value></data>
+	<data name="BlogOffers" xml:space="preserve"><value>Blog Yazılarımız</value></data>
+	<data name="ReadMore" xml:space="preserve"><value>Devamı</value></data>
+	<data name="PerPerson" xml:space="preserve"><value>Kişi başı</value></data>
+	<data name="BookingSuccess" xml:space="preserve"><value>Rezervasyonunuz başarıyla alındı!</value></data>
+
 </root>
