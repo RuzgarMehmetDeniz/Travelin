@@ -1,0 +1,174 @@
+﻿@model UpdateTourRotaDto
+@{
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+}
+
+@section Styles {
+    <style>
+        .page-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #1a202c;
+            letter-spacing: -.03em;
+            line-height: 1;
+        }
+
+        .breadcrumb {
+            margin: 0;
+            padding: 0;
+            background: none;
+        }
+
+        .breadcrumb-item {
+            font-size: .8rem;
+        }
+
+            .breadcrumb-item a {
+                color: #2563eb;
+                text-decoration: none;
+            }
+
+            .breadcrumb-item.active {
+                color: #718096;
+            }
+
+        .form-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
+            max-width: 600px;
+        }
+
+        .form-card-header {
+            padding: 1.1rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: .95rem;
+            color: #1a202c;
+        }
+
+        .form-card-body {
+            padding: 1.75rem 1.5rem;
+        }
+
+        .form-label {
+            font-size: .78rem;
+            font-weight: 600;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin-bottom: .4rem;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            font-size: .875rem;
+            border: 1px solid #e2e8f0;
+            padding: .55rem .85rem;
+            color: #1a202c;
+            transition: border-color .15s,box-shadow .15s;
+        }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #15803d;
+                box-shadow: 0 0 0 3px rgba(21,128,61,.1);
+                outline: none;
+            }
+
+        .form-card-footer {
+            padding: 1.1rem 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: .75rem;
+            background: #f8fafc;
+        }
+
+        .btn-save {
+            border-radius: 9px;
+            font-size: .875rem;
+            font-weight: 600;
+            padding: .5rem 1.4rem;
+        }
+
+        .current-info {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-size: .75rem;
+            color: #15803d;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 6px;
+            padding: .2rem .6rem;
+            margin-bottom: .5rem;
+        }
+    </style>
+}
+
+<div class="d-flex align-items-start justify-content-between flex-wrap gap-2 mb-4">
+    <div>
+        <h1 class="page-title">Rota Güncelle</h1>
+        <nav aria-label="breadcrumb" class="mt-2">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item"><a href="/AdminTourRota/TourRotaList">Rotalar</a></li>
+                <li class="breadcrumb-item active">Güncelle</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="form-card">
+    <div class="form-card-header">
+        <i class="bi bi-pencil-square" style="color:#15803d;"></i>
+        Rota Bilgilerini Güncelle
+    </div>
+    <form asp-action="UpdateTourRota" method="post">
+        @Html.AntiForgeryToken()
+        <input asp-for="TourRotaId" type="hidden" />
+        <div class="form-card-body">
+            <div class="row g-3">
+                <div class="col-12">
+                    <label class="form-label">Tur Seçin</label>
+                    <select name="TourId" class="form-select" required>
+                        <option value="">-- Tur Seçiniz --</option>
+                        @if (ViewBag.Tours != null)
+                        {
+                            foreach (var tour in (IEnumerable<ResultTourDto>)ViewBag.Tours)
+                            {
+                                <option value="@tour.TourId"
+                                        selected="@(tour.TourId == Model.TourId ? "selected" : null)">
+                                    @tour.Title
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Rota Adı</label>
+                    <div class="current-info">
+                        <i class="bi bi-signpost-fill"></i> Mevcut: @Model.Name
+                    </div>
+                    <input asp-for="Name" class="form-control" placeholder="Rota adını giriniz" required />
+                </div>
+            </div>
+        </div>
+        <div class="form-card-footer">
+            <a href="/AdminTourRota/TourRotaList" class="btn btn-light" style="border-radius:9px;font-size:.875rem;">
+                <i class="bi bi-x-lg me-1"></i> İptal
+            </a>
+            <button type="submit" class="btn btn-success btn-save">
+                <i class="bi bi-check-lg me-1"></i> Güncelle
+            </button>
+        </div>
+    </form>
+</div>

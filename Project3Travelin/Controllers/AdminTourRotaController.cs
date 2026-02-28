@@ -21,8 +21,7 @@ namespace Project3Travelin.Controllers
         {
             var rotas = await _tourRotaService.GetAllTourRotaAsync();
             var tours = await _tourService.GetAllTourAsync();
-            var tourDict = tours.ToDictionary(t => t.TourId, t => t.Title);
-            ViewBag.TourDict = tourDict;
+            ViewBag.TourDict = tours.ToDictionary(t => t.TourId, t => t.Title);
             return View(rotas);
         }
 

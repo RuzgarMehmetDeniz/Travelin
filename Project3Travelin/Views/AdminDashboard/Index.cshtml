@@ -1,0 +1,436 @@
+﻿@model DashboardViewModel
+@{
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+}
+
+@section Styles {
+    <style>
+        .page-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #1a202c;
+            letter-spacing: -.03em;
+            line-height: 1;
+        }
+
+        .stat-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 1.4rem 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform .15s,box-shadow .15s;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 24px rgba(0,0,0,.09);
+            }
+
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+            .stat-icon.blue {
+                background: #eff6ff;
+                color: #2563eb;
+            }
+
+            .stat-icon.green {
+                background: #f0fdf4;
+                color: #15803d;
+            }
+
+            .stat-icon.purple {
+                background: #fdf4ff;
+                color: #9333ea;
+            }
+
+            .stat-icon.orange {
+                background: #fff7ed;
+                color: #ea580c;
+            }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1a202c;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: .78rem;
+            color: #a0aec0;
+            font-weight: 500;
+            margin-top: .25rem;
+        }
+
+        .table-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
+        }
+
+        .table-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.1rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+            .table-card-header .title {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: .95rem;
+                color: #1a202c;
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+            }
+
+        .dash-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .dash-table thead th {
+                background: #f8fafc;
+                font-size: .72rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: .06em;
+                color: #718096;
+                padding: .75rem 1rem;
+                border-bottom: 1px solid #e2e8f0;
+                white-space: nowrap;
+            }
+
+            .dash-table tbody tr {
+                border-bottom: 1px solid #f0f4f8;
+                transition: background .12s;
+            }
+
+                .dash-table tbody tr:last-child {
+                    border-bottom: none;
+                }
+
+                .dash-table tbody tr:hover {
+                    background: #f8fafc;
+                }
+
+            .dash-table tbody td {
+                padding: .8rem 1rem;
+                vertical-align: middle;
+                font-size: .855rem;
+                color: #2d3748;
+            }
+
+        .tour-thumb-sm {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid #e2e8f0;
+        }
+
+        .thumb-placeholder-sm {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(135deg,#e2e8f0,#cbd5e0);
+            display: grid;
+            place-items: center;
+            color: #a0aec0;
+            font-size: 1rem;
+        }
+
+        .tour-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            background: #eff6ff;
+            color: #2563eb;
+            font-size: .75rem;
+            font-weight: 600;
+            padding: .22rem .6rem;
+            border-radius: 8px;
+        }
+
+        .duration-pill {
+            background: #fef3c7;
+            color: #92400e;
+            font-size: .72rem;
+            font-weight: 600;
+            padding: .2rem .6rem;
+            border-radius: 20px;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg,#0ea5e9,#38bdf8);
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: .85rem;
+            flex-shrink: 0;
+            border: 2px solid #bae6fd;
+        }
+
+        .name-fw {
+            font-weight: 600;
+            color: #1a202c;
+            font-size: .875rem;
+        }
+
+        .sub-txt {
+            font-size: .73rem;
+            color: #a0aec0;
+        }
+
+        .view-all {
+            font-size: .78rem;
+            font-weight: 600;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+            .view-all:hover {
+                text-decoration: underline;
+            }
+    </style>
+}
+
+<!-- HEADER -->
+<div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
+    <div>
+        <h1 class="page-title">Dashboard</h1>
+        <p style="font-size:.82rem;color:#a0aec0;margin:.3rem 0 0;">Projenizin genel özeti</p>
+    </div>
+    <span style="font-size:.8rem;color:#a0aec0;">
+        <i class="bi bi-clock me-1"></i> @DateTime.Now.ToString("dd MMMM yyyy, HH:mm")
+    </span>
+</div>
+
+<!-- STAT CARDS -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-icon blue"><i class="bi bi-map"></i></div>
+            <div>
+                <div class="stat-value">@Model.TotalTour</div>
+                <div class="stat-label">Toplam Tur</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-icon green"><i class="bi bi-calendar2-check"></i></div>
+            <div>
+                <div class="stat-value">@Model.TotalBooking</div>
+                <div class="stat-label">Toplam Rezervasyon</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-icon purple"><i class="bi bi-grid"></i></div>
+            <div>
+                <div class="stat-value">@Model.TotalCategory</div>
+                <div class="stat-label">Toplam Kategori</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-icon orange"><i class="bi bi-signpost-split"></i></div>
+            <div>
+                <div class="stat-value">@Model.TotalRota</div>
+                <div class="stat-label">Toplam Rota</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SON TURLAR + SON REZERVASYONLAR -->
+<div class="row g-3">
+    <div class="col-12 col-xl-6">
+        <div class="table-card">
+            <div class="table-card-header">
+                <div class="title"><i class="bi bi-map" style="color:#a0aec0;"></i> Son Eklenen Turlar</div>
+                <a href="/AdminTour/TourList" class="view-all">Tümünü Gör →</a>
+            </div>
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Görsel</th>
+                        <th>Tur Adı</th>
+                        <th>Ülke</th>
+                        <th>Süre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tour in Model.RecentTours)
+                    {
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(tour.ImageUrl))
+                                {
+                                    <img src="@tour.ImageUrl" class="tour-thumb-sm" alt="@tour.Title" />
+                                }
+                                else
+                                {
+                                    <div class="thumb-placeholder-sm"><i class="bi bi-image"></i></div>
+                                }
+                            </td>
+                            <td>
+                                <div class="name-fw">@tour.Title</div>
+                                <div class="sub-txt">@tour.City</div>
+                            </td>
+                            <td><span class="tour-badge"><i class="bi bi-globe2"></i>@tour.Country</span></td>
+                            <td><span class="duration-pill"><i class="bi bi-clock me-1"></i>@tour.DayNight</span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-12 col-xl-6">
+        <div class="table-card">
+            <div class="table-card-header">
+                <div class="title"><i class="bi bi-calendar2-check" style="color:#a0aec0;"></i> Son Rezervasyonlar</div>
+                <a href="/AdminBooking/BookingList" class="view-all">Tümünü Gör →</a>
+            </div>
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Müşteri</th>
+                        <th>Tur</th>
+                        <th>Tarih</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var booking in Model.RecentBookings)
+                    {
+                        <tr>
+                            <td>
+                                <div style="display:flex;align-items:center;gap:.6rem;">
+                                    <div class="avatar">
+                                        @(booking.Name?.Length > 0 ? booking.Name[0].ToString().ToUpper() : "?")
+                                    </div>
+                                    <div>
+                                        <div class="name-fw">@booking.Name @booking.Surname</div>
+                                        <div class="sub-txt">@booking.Email</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="tour-badge"><i class="bi bi-map"></i>@booking.TourTitle</span></td>
+                            <td><span style="font-size:.82rem;font-weight:500;">@booking.BookingDate.ToString("dd.MM.yyyy")</span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ÜLKEYE GÖRE DAĞILIM + EN ÇOK REZ. ALAN TURLAR -->
+<div class="row g-3 mt-1">
+    <div class="col-12 col-xl-6">
+        <div class="table-card">
+            <div class="table-card-header">
+                <div class="title"><i class="bi bi-globe2" style="color:#a0aec0;"></i> Ülkeye Göre Tur Dağılımı</div>
+            </div>
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Ülke</th>
+                        <th>Tur Sayısı</th>
+                        <th>Dağılım</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ToursByCountry.OrderByDescending(x => x.Value))
+                    {
+                        var percent = Model.TotalTour > 0 ? (item.Value * 100 / Model.TotalTour) : 0;
+                        <tr>
+                            <td><span style="font-weight:600;color:#1a202c;"><i class="bi bi-geo-alt me-1 text-muted"></i>@item.Key</span></td>
+                            <td><span style="font-size:.82rem;font-weight:600;color:#2563eb;">@item.Value tur</span></td>
+                            <td style="min-width:120px;">
+                                <div style="display:flex;align-items:center;gap:.5rem;">
+                                    <div style="flex:1;height:6px;background:#e2e8f0;border-radius:99px;overflow:hidden;">
+                                        <div style="width:@percent%;height:100%;background:#2563eb;border-radius:99px;transition:width .4s;"></div>
+                                    </div>
+                                    <span style="font-size:.72rem;color:#a0aec0;min-width:28px;">%@percent</span>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-12 col-xl-6">
+        <div class="table-card">
+            <div class="table-card-header">
+                <div class="title"><i class="bi bi-trophy" style="color:#a0aec0;"></i> En Çok Rezervasyon Alan Turlar</div>
+            </div>
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tur Adı</th>
+                        <th>Rezervasyon</th>
+                        <th>Dağılım</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int rank = 1;
+                    }
+                    @foreach (var item in Model.TopBookedTours)
+                    {
+                        var percent = Model.TotalBooking > 0 ? (item.Count * 100 / Model.TotalBooking) : 0;
+                        var medalColor = rank == 1 ? "#f59e0b" : rank == 2 ? "#94a3b8" : rank == 3 ? "#b45309" : "#a0aec0";
+                        <tr>
+                            <td><span style="font-weight:700;color:@medalColor;font-size:.85rem;">@rank</span></td>
+                            <td><span style="font-weight:600;color:#1a202c;font-size:.855rem;">@item.TourTitle</span></td>
+                            <td>
+                                <span style="background:#f0fdf4;color:#15803d;font-size:.73rem;font-weight:600;padding:.2rem .6rem;border-radius:20px;">
+                                    @item.Count rezervasyon
+                                </span>
+                            </td>
+                            <td style="min-width:120px;">
+                                <div style="display:flex;align-items:center;gap:.5rem;">
+                                    <div style="flex:1;height:6px;background:#e2e8f0;border-radius:99px;overflow:hidden;">
+                                        <div style="width:@percent%;height:100%;background:#15803d;border-radius:99px;transition:width .4s;"></div>
+                                    </div>
+                                    <span style="font-size:.72rem;color:#a0aec0;min-width:28px;">%@percent</span>
+                                </div>
+                            </td>
+                        </tr>
+                        rank++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
