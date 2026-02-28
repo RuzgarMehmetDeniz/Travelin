@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+
+	<data name="HomePage" xml:space="preserve"><value>Startseite</value></data>
+	<data name="TourList" xml:space="preserve"><value>Tourliste</value></data>
+	<data name="TourRoutes" xml:space="preserve"><value>Tourrouten</value></data>
+	<data name="VisaFree" xml:space="preserve"><value>Visafreie Touren</value></data>
+	<data name="Domestic" xml:space="preserve"><value>Inlandstouren</value></data>
+	<data name="BookNow" xml:space="preserve"><value>Jetzt Buchen</value></data>
+	<data name="Login" xml:space="preserve"><value>Anmelden / Registrieren</value></data>
+	<data name="ExploreWorld" xml:space="preserve"><value>Die Welt Entdecken</value></data>
+	<data name="HeroTitle" xml:space="preserve"><value>Planen Sie Ihre Traumreise!</value></data>
+	<data name="HeroDesc" xml:space="preserve"><value>Sie sind am richtigen Ort, um unvergessliche Erinnerungen zu schaffen.</value></data>
+	<data name="SearchNow" xml:space="preserve"><value>Jetzt Suchen</value></data>
+	<data name="SelectDestination" xml:space="preserve"><value>Ziel auswählen</value></data>
+	<data name="SelectCategory" xml:space="preserve"><value>Kategorie auswählen</value></data>
+	<data name="SelectDuration" xml:space="preserve"><value>Dauer auswählen</value></data>
+	<data name="BestTours" xml:space="preserve"><value>Beste Tourpakete</value></data>
+	<data name="FeaturedTours" xml:space="preserve"><value>Ausgewählte Touren</value></data>
+	<data name="Booking" xml:space="preserve"><value>Buchung</value></data>
+	<data name="BookingTitle" xml:space="preserve"><value>Tour buchen</value></data>
+	<data name="Name" xml:space="preserve"><value>Vorname</value></data>
+	<data name="Surname" xml:space="preserve"><value>Nachname</value></data>
+	<data name="Email" xml:space="preserve"><value>E-Mail</value></data>
+	<data name="Phone" xml:space="preserve"><value>Telefon</value></data>
+	<data name="SelectTour" xml:space="preserve"><value>Tour auswählen</value></data>
+	<data name="BookingDate" xml:space="preserve"><value>Buchungsdatum</value></data>
+	<data name="Submit" xml:space="preserve"><value>Jetzt Buchen</value></data>
+	<data name="Reviews" xml:space="preserve"><value>Kundenbewertungen</value></data>
+	<data name="HappyClients" xml:space="preserve"><value>Unsere zufriedenen Kunden</value></data>
+	<data name="AboutUs" xml:space="preserve"><value>Über Uns</value></data>
+	<data name="Categories" xml:space="preserve"><value>Kategorien</value></data>
+	<data name="QuickLinks" xml:space="preserve"><value>Schnelllinks</value></data>
+	<data name="Newsletter" xml:space="preserve"><value>Newsletter</value></data>
+	<data name="Subscribe" xml:space="preserve"><value>Abonnieren</value></data>
+	<data name="AllRights" xml:space="preserve"><value>Alle Rechte vorbehalten.</value></data>
+	<data name="TopDestinations" xml:space="preserve"><value>Top Reiseziele</value></data>
+	<data name="ExploreDestinations" xml:space="preserve"><value>Top Reiseziele Entdecken</value></data>
+	<data name="LastMinute" xml:space="preserve"><value>Last-Minute-Angebote</value></data>
+	<data name="TopDeals" xml:space="preserve"><value>Top Angebote</value></data>
+	<data name="SpecialOffers" xml:space="preserve"><value>Sonderangebote &amp; Rabatte</value></data>
+	<data name="TourGuides" xml:space="preserve"><value>Reiseleiter</value></data>
+	<data name="MeetGuides" xml:space="preserve"><value>Lernen Sie unsere Reiseleiter kennen</value></data>
+	<data name="YearsExp" xml:space="preserve"><value>Jahre Erfahrung</value></data>
+	<data name="TourPackages" xml:space="preserve"><value>Tourpakete</value></data>
+	<data name="HappyCustomers" xml:space="preserve"><value>Zufriedene Kunden</value></data>
+	<data name="FollowInstagram" xml:space="preserve"><value>Auf Instagram folgen</value></data>
+	<data name="RecentArticles" xml:space="preserve"><value>Aktuelle Artikel &amp; Beiträge</value></data>
+	<data name="BlogOffers" xml:space="preserve"><value>Unser Blog</value></data>
+	<data name="ReadMore" xml:space="preserve"><value>Mehr lesen</value></data>
+	<data name="PerPerson" xml:space="preserve"><value>Pro Person</value></data>
+	<data name="BookingSuccess" xml:space="preserve"><value>Ihre Buchung wurde erfolgreich entgegengenommen!</value></data>
+</root>
