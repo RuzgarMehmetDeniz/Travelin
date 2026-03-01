@@ -6,6 +6,7 @@ using Project3Travelin.Dtos.CommentDtos;
 using Project3Travelin.Models;
 using Project3Travelin.Services.BookingServices;
 using Project3Travelin.Services.CategoryServices;
+using Project3Travelin.Services.CommentServices;
 using Project3Travelin.Services.TourServices;
 
 namespace Project3Travelin.Controllers
@@ -14,6 +15,7 @@ namespace Project3Travelin.Controllers
     {
         private readonly ITourService _tourService;
         private readonly ICategoryService _categoryService;
+        private readonly ICommentServices _commentServices;
         private readonly IBookingService _bookingService;
         private readonly IStringLocalizer<Project3Travelin.Resources.SharedResource> _localizer;
 
@@ -21,12 +23,14 @@ namespace Project3Travelin.Controllers
             ITourService tourService,
             ICategoryService categoryService,
             IBookingService bookingService,
-            IStringLocalizer<Project3Travelin.Resources.SharedResource> localizer)
+            IStringLocalizer<Project3Travelin.Resources.SharedResource> localizer,
+            ICommentServices commentServices)
         {
             _tourService = tourService;
             _categoryService = categoryService;
             _bookingService = bookingService;
             _localizer = localizer;
+            _commentServices = commentServices;
         }
 
         public async Task<IActionResult> Index()
@@ -39,8 +43,9 @@ namespace Project3Travelin.Controllers
             {
                 Tours = await _tourService.GetAllTourAsync(),
                 Categories = await _categoryService.GetAllCategoryAsync(),
-                Comments = new List<ResultCommentDto>()
+                Comments = await _commentServices.GetAllCommentAsync() // <--- burası
             };
+
             return View(model);
         }
 
