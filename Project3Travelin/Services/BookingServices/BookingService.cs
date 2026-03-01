@@ -52,5 +52,11 @@ namespace Project3Travelin.Services.BookingServices
             var values = await _BookingCollection.Find(x => x.TourId == tourId).ToListAsync();
             return _mapper.Map<List<GetBookingByIdDto>>(values);
         }
+        public async Task ApproveBookingAsync(string id, bool isStatus)
+        {
+            var filter = Builders<Booking>.Filter.Eq(x => x.BookingId, id);
+            var update = Builders<Booking>.Update.Set(x => x.IsStatus, isStatus);
+            await _BookingCollection.UpdateOneAsync(filter, update);
+        }
     }
 }

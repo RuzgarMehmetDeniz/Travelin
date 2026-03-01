@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Project3Travelin.Dtos.BookingDtos;
 using Project3Travelin.Services.BookingServices;
 using Project3Travelin.Services.TourServices;
-using System.Drawing;
 
 namespace Project3Travelin.Controllers
 {
@@ -57,7 +56,9 @@ namespace Project3Travelin.Controllers
                 Email = booking.Email,
                 Phone = booking.Phone,
                 TourId = booking.TourId,
-                BookingDate = booking.BookingDate
+                TourTitle = booking.TourTitle,
+                BookingDate = booking.BookingDate,
+                IsStatus = booking.IsStatus
             });
         }
 
@@ -78,7 +79,16 @@ namespace Project3Travelin.Controllers
         [HttpPost]
         public async Task<IActionResult> ApproveBooking(string id)
         {
+            await _bookingService.ApproveBookingAsync(id, true);
             TempData["Success"] = "Rezervasyon başarıyla onaylandı.";
+            return RedirectToAction("BookingList");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RejectBooking(string id)
+        {
+            await _bookingService.ApproveBookingAsync(id, false);
+            TempData["Error"] = "Rezervasyon reddedildi.";
             return RedirectToAction("BookingList");
         }
 
@@ -97,9 +107,10 @@ namespace Project3Travelin.Controllers
             ws.Cell(1, 4).Value = "Telefon";
             ws.Cell(1, 5).Value = "Tur";
             ws.Cell(1, 6).Value = "Rezervasyon Tarihi";
-            ws.Cell(1, 7).Value = "Booking ID";
+            ws.Cell(1, 7).Value = "Durum";
+            ws.Cell(1, 8).Value = "Booking ID";
 
-            var headerRow = ws.Range("A1:G1");
+            var headerRow = ws.Range("A1:H1");
             headerRow.Style.Font.Bold = true;
             headerRow.Style.Fill.BackgroundColor = XLColor.FromHtml("#2563eb");
             headerRow.Style.Font.FontColor = XLColor.White;
@@ -114,7 +125,15 @@ namespace Project3Travelin.Controllers
                 ws.Cell(row, 4).Value = item.Phone;
                 ws.Cell(row, 5).Value = tourDict.TryGetValue(item.TourId, out var t) ? t : "Belirtilmemiş";
                 ws.Cell(row, 6).Value = item.BookingDate.ToString("dd.MM.yyyy");
-                ws.Cell(row, 7).Value = item.BookingId;
+                ws.Cell(row, 7).Value = item.IsStatus ? "Onaylı" : "Beklemede";
+                ws.Cell(row, 8).Value = item.BookingId;
+
+                // Onaylı satırları yeşil, bekleyenleri sarı yap
+                if (item.IsStatus)
+                    ws.Row(row).Style.Fill.BackgroundColor = XLColor.FromHtml("#f0fdf4");
+                else
+                    ws.Row(row).Style.Fill.BackgroundColor = XLColor.FromHtml("#fefce8");
+
                 row++;
             }
 

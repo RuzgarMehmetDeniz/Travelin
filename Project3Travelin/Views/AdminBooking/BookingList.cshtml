@@ -1,9 +1,22 @@
 ﻿@model List<ResultBookingDto>
+@using Project3Travelin.Dtos.BookingDtos
 @{
     Layout = "~/Views/Shared/_TourLayout.cshtml";
     string q = Context.Request.Query["q"];
     string fromDate = Context.Request.Query["fromDate"];
     string toDate = Context.Request.Query["toDate"];
+    string statusFilter = Context.Request.Query["status"];
+    var filtered = Model ?? new List<ResultBookingDto>();
+    if (!string.IsNullOrEmpty(q))
+        filtered = filtered.Where(x => (x.Name + " " + x.Surname + x.Email + x.Phone).Contains(q, StringComparison.OrdinalIgnoreCase)).ToList();
+    if (!string.IsNullOrEmpty(fromDate) && DateTime.TryParse(fromDate, out var fd))
+        filtered = filtered.Where(x => x.BookingDate >= fd).ToList();
+    if (!string.IsNullOrEmpty(toDate) && DateTime.TryParse(toDate, out var td))
+        filtered = filtered.Where(x => x.BookingDate <= td).ToList();
+    if (statusFilter == "approved")
+        filtered = filtered.Where(x => x.IsStatus).ToList();
+    else if (statusFilter == "pending")
+        filtered = filtered.Where(x => !x.IsStatus).ToList();
 }
 
 @section Styles {
@@ -16,6 +29,16 @@
             .btn-approve:hover {
                 background: #bbf7d0;
                 color: #14532d;
+            }
+
+        .btn-reject {
+            background: #fff5f5;
+            color: #e53e3e;
+        }
+
+            .btn-reject:hover {
+                background: #fed7d7;
+                color: #c53030;
             }
 
         .page-header {
@@ -63,6 +86,49 @@
             margin-bottom: 1.5rem;
             box-shadow: 0 1px 4px rgba(0,0,0,.04);
         }
+
+        .status-tabs {
+            display: flex;
+            gap: .5rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .status-tab {
+            padding: .4rem 1rem;
+            border-radius: 20px;
+            font-size: .8rem;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            color: #718096;
+            text-decoration: none;
+            transition: all .15s;
+        }
+
+            .status-tab:hover {
+                border-color: #cbd5e0;
+                color: #1a202c;
+            }
+
+            .status-tab.active {
+                background: #2563eb;
+                border-color: #2563eb;
+                color: #fff;
+            }
+
+            .status-tab.approved {
+            }
+
+                .status-tab.approved.active {
+                    background: #15803d;
+                    border-color: #15803d;
+                }
+
+            .status-tab.pending.active {
+                background: #d97706;
+                border-color: #d97706;
+            }
 
         .table-card {
             background: #fff;
@@ -198,6 +264,26 @@
             border-radius: 6px;
             font-family: monospace;
         }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            font-size: .73rem;
+            font-weight: 600;
+            padding: .25rem .65rem;
+            border-radius: 20px;
+        }
+
+            .status-badge.approved {
+                background: #f0fdf4;
+                color: #15803d;
+            }
+
+            .status-badge.pending {
+                background: #fefce8;
+                color: #d97706;
+            }
 
         .action-group {
             display: flex;
@@ -340,6 +426,7 @@
     </style>
 }
 
+<!-- PAGE HEADER -->
 <div class="page-header">
     <div>
         <h1 class="page-title">Rezervasyon Listesi</h1>
@@ -362,8 +449,26 @@
     </div>
 </div>
 
+<!-- STATUS TABS -->
+<div class="status-tabs">
+    <a href="?" class="status-tab @(string.IsNullOrEmpty(statusFilter) ? "active" : "")">
+        <i class="bi bi-list-ul me-1"></i> Tümü
+        <span style="background:rgba(0,0,0,.08);padding:.1rem .45rem;border-radius:10px;margin-left:.3rem;">@Model.Count</span>
+    </a>
+    <a href="?status=approved" class="status-tab approved @(statusFilter == "approved" ? "active" : "")">
+        <i class="bi bi-check-circle me-1"></i> Onaylı
+        <span style="background:rgba(0,0,0,.08);padding:.1rem .45rem;border-radius:10px;margin-left:.3rem;">@Model.Count(x => x.IsStatus)</span>
+    </a>
+    <a href="?status=pending" class="status-tab pending @(statusFilter == "pending" ? "active" : "")">
+        <i class="bi bi-clock me-1"></i> Beklemede
+        <span style="background:rgba(0,0,0,.08);padding:.1rem .45rem;border-radius:10px;margin-left:.3rem;">@Model.Count(x => !x.IsStatus)</span>
+    </a>
+</div>
+
+<!-- FILTER CARD -->
 <div class="filter-card">
     <form method="get">
+        <input type="hidden" name="status" value="@statusFilter" />
         <div class="row g-2 align-items-end">
             <div class="col-12 col-md-5">
                 <label class="form-label fw-semibold" style="font-size:.78rem;color:#718096">Ara</label>
@@ -401,17 +506,24 @@
         <i class="bi bi-check-circle-fill"></i> @TempData["Success"]
     </div>
 }
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger d-flex align-items-center gap-2 mb-3" style="border-radius:10px;font-size:.875rem;">
+        <i class="bi bi-x-circle-fill"></i> @TempData["Error"]
+    </div>
+}
 
+<!-- TABLE CARD -->
 <div class="table-card">
     <div class="table-card-header">
         <div class="title">
             <i class="bi bi-calendar2-check" style="color:#a0aec0;"></i>
             Tüm Rezervasyonlar
-            <span class="booking-count">@Model.Count rezervasyon</span>
+            <span class="booking-count">@filtered.Count rezervasyon</span>
         </div>
     </div>
 
-    @if (Model == null || !Model.Any())
+    @if (!filtered.Any())
     {
         <div class="empty-state">
             <i class="bi bi-calendar2-x"></i>
@@ -429,6 +541,7 @@
                         <th>İletişim</th>
                         <th>Tur</th>
                         <th>Tarih</th>
+                        <th>Durum</th>
                         <th>Booking ID</th>
                         <th>İşlemler</th>
                     </tr>
@@ -437,7 +550,7 @@
                     @{
                         int rowIndex = 1;
                     }
-                    @foreach (var item in Model)
+                    @foreach (var item in filtered)
                     {
                         <tr>
                             <td data-label="#">
@@ -466,6 +579,20 @@
                                     @item.BookingDate.ToString("dd.MM.yyyy")
                                 </span>
                             </td>
+                            <td data-label="Durum">
+                                @if (item.IsStatus)
+                                {
+                                    <span class="status-badge approved">
+                                        <i class="bi bi-check-circle-fill"></i> Onaylı
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="status-badge pending">
+                                        <i class="bi bi-clock-fill"></i> Beklemede
+                                    </span>
+                                }
+                            </td>
                             <td data-label="Booking ID">
                                 <span class="id-badge">@item.BookingId</span>
                             </td>
@@ -476,17 +603,27 @@
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                     <button type="button" class="btn-action btn-detail" title="Detay"
-                                            onclick="showBookingDetail('@item.BookingId','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Name))','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Surname))','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Email))','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Phone))','@item.BookingDate.ToString("dd.MM.yyyy")','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.TourTitle))','@item.TourId')">
+                                            onclick="showBookingDetail('@item.BookingId','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Name))','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Surname))','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Email))','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Phone))','@item.BookingDate.ToString("dd.MM.yyyy")','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.TourTitle))','@item.TourId','@item.IsStatus.ToString().ToLower()')">
                                         <i class="bi bi-eye"></i>
                                     </button>
                                     <button type="button" class="btn-action btn-delete" title="Sil"
                                             onclick="confirmDelete('@item.BookingId','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Name + " " + item.Surname))')">
                                         <i class="bi bi-trash3"></i>
                                     </button>
-                                    <button type="button" class="btn-action btn-approve" title="Onayla"
-                                            onclick="confirmApprove('@item.BookingId','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Name + " " + item.Surname))','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Email))')">
-                                        <i class="bi bi-check-circle"></i>
-                                    </button>
+                                    @if (!item.IsStatus)
+                                    {
+                                        <button type="button" class="btn-action btn-approve" title="Onayla"
+                                                onclick="confirmApprove('@item.BookingId','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Name + " " + item.Surname))','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Email))')">
+                                            <i class="bi bi-check-circle"></i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn-action btn-reject" title="Reddet"
+                                                onclick="confirmReject('@item.BookingId','@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Name + " " + item.Surname))')">
+                                            <i class="bi bi-x-circle"></i>
+                                        </button>
+                                    }
                                 </div>
                             </td>
                         </tr>
@@ -496,7 +633,7 @@
             </table>
         </div>
         <div class="pagination-wrapper">
-            <span class="page-info">@Model.Count rezervasyon gösteriliyor</span>
+            <span class="page-info">Toplam <strong>@filtered.Count</strong> rezervasyon gösteriliyor</span>
         </div>
     }
 </div>
@@ -529,7 +666,7 @@
 <div class="modal fade" id="bookingDetailModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width:480px">
         <div class="modal-content" style="border-radius:16px;border:0;box-shadow:0 24px 64px rgba(0,0,0,.18);overflow:hidden;">
-            <div style="background:linear-gradient(135deg,#0ea5e9 0%,#38bdf8 100%);padding:1.75rem 1.75rem 1.25rem;position:relative;">
+            <div style="background:linear-gradient(135deg,#0ea5e9 0%,#38bdf8 100%);padding:1.75rem 1.75rem 1.24rem;position:relative;">
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" style="position:absolute;top:1rem;right:1rem;"></button>
                 <div id="detailAvatar" style="width:52px;height:52px;background:rgba(255,255,255,.2);border-radius:50%;display:grid;place-items:center;font-size:1.4rem;font-weight:800;color:#fff;border:2px solid rgba(255,255,255,.3);margin-bottom:1rem;">?</div>
                 <h5 id="detailFullName" style="font-family:var(--font-display);font-weight:800;font-size:1.2rem;color:#fff;margin:0;">—</h5>
@@ -552,6 +689,10 @@
                     <div style="display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;">
                         <span style="font-size:.75rem;font-weight:600;text-transform:uppercase;color:#a0aec0;">Tarih</span>
                         <span id="detailDate" style="font-size:.875rem;font-weight:500;color:#2d3748;">—</span>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;">
+                        <span style="font-size:.75rem;font-weight:600;text-transform:uppercase;color:#a0aec0;">Durum</span>
+                        <span id="detailStatus">—</span>
                     </div>
                     <div style="display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;">
                         <span style="font-size:.75rem;font-weight:600;text-transform:uppercase;color:#a0aec0;">Booking ID</span>
@@ -593,6 +734,30 @@
     </div>
 </div>
 
+<!-- REJECT MODAL -->
+<div class="modal fade" id="rejectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:420px">
+        <div class="modal-content" style="border-radius:14px;border:0;box-shadow:0 20px 60px rgba(0,0,0,.15)">
+            <div class="modal-body p-4 text-center">
+                <div style="width:60px;height:60px;background:#fff5f5;border-radius:50%;display:grid;place-items:center;margin:0 auto 1.25rem;font-size:1.5rem;color:#e53e3e;">
+                    <i class="bi bi-x-circle"></i>
+                </div>
+                <h5 style="font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:#1a202c;margin-bottom:.5rem;">Rezervasyon Reddedilecek</h5>
+                <p class="text-muted" style="font-size:.875rem;" id="rejectModalBody"></p>
+            </div>
+            <div class="modal-footer border-0 pt-0 pb-4 px-4 d-flex gap-2">
+                <button type="button" class="btn btn-light flex-fill" data-bs-dismiss="modal" style="border-radius:9px;font-size:.875rem;">İptal</button>
+                <form id="rejectForm" method="post" style="flex:1">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger w-100" style="border-radius:9px;font-size:.875rem;">
+                        <i class="bi bi-x-lg me-1"></i> Reddet
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script>
         function confirmDelete(bookingId, fullName) {
@@ -601,7 +766,7 @@
             new bootstrap.Modal(document.getElementById('deleteModal')).show();
         }
 
-        function showBookingDetail(bookingId, name, surname, email, phone, date, tourTitle, tourId) {
+        function showBookingDetail(bookingId, name, surname, email, phone, date, tourTitle, tourId, isStatus) {
             document.getElementById('detailAvatar').textContent = name?.charAt(0)?.toUpperCase() || '?';
             document.getElementById('detailFullName').textContent = name + ' ' + surname;
             document.getElementById('detailEmail').textContent = email || '—';
@@ -609,6 +774,12 @@
             document.getElementById('detailTourTitle').textContent = tourTitle || '—';
             document.getElementById('detailDate').textContent = date || '—';
             document.getElementById('detailBookingId').textContent = bookingId || '—';
+            const statusEl = document.getElementById('detailStatus');
+            if (isStatus === 'true') {
+                statusEl.innerHTML = '<span style="background:#f0fdf4;color:#15803d;font-size:.73rem;font-weight:600;padding:.25rem .65rem;border-radius:20px;"><i class="bi bi-check-circle-fill me-1"></i>Onaylı</span>';
+            } else {
+                statusEl.innerHTML = '<span style="background:#fefce8;color:#d97706;font-size:.73rem;font-weight:600;padding:.25rem .65rem;border-radius:20px;"><i class="bi bi-clock-fill me-1"></i>Beklemede</span>';
+            }
             new bootstrap.Modal(document.getElementById('bookingDetailModal')).show();
         }
 
@@ -617,6 +788,12 @@
             document.getElementById('approveEmail').textContent = email;
             document.getElementById('approveForm').action = '/AdminBooking/ApproveBooking/' + bookingId;
             new bootstrap.Modal(document.getElementById('approveModal')).show();
+        }
+
+        function confirmReject(bookingId, fullName) {
+            document.getElementById('rejectModalBody').textContent = '"' + fullName + '" adlı müşterinin rezervasyonu reddedilecek.';
+            document.getElementById('rejectForm').action = '/AdminBooking/RejectBooking/' + bookingId;
+            new bootstrap.Modal(document.getElementById('rejectModal')).show();
         }
     </script>
 }
