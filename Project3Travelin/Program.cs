@@ -24,7 +24,6 @@ builder.Services.AddScoped<IDatabaseSettings>(sp =>
     sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
 
 // Lokalizasyon
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddControllersWithViews()
     .AddViewLocalization()
     .AddDataAnnotationsLocalization();
