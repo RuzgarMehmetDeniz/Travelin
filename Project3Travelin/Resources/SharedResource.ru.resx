@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+
+	<data name="HomePage" xml:space="preserve"><value>Домашняя страница</value></data>
+	<data name="TourList" xml:space="preserve"><value>Список туров</value></data>
+	<data name="TourRoutes" xml:space="preserve"><value>Маршруты туров</value></data>
+	<data name="VisaFree" xml:space="preserve"><value>Туры без визы</value></data>
+	<data name="Domestic" xml:space="preserve"><value>Внутренние туры</value></data>
+	<data name="BookNow" xml:space="preserve"><value>Забронировать сейчас</value></data>
+	<data name="Login" xml:space="preserve"><value>Вход / Регистрация</value></data>
+	<data name="ExploreWorld" xml:space="preserve"><value>Исследуйте мир</value></data>
+	<data name="HeroTitle" xml:space="preserve"><value>Планируйте путешествие вашей мечты!</value></data>
+	<data name="HeroDesc" xml:space="preserve"><value>Вы на правильном пути, чтобы создать незабываемые воспоминания.</value></data>
+	<data name="SearchNow" xml:space="preserve"><value>Искать сейчас</value></data>
+	<data name="SelectDestination" xml:space="preserve"><value>Выберите направление</value></data>
+	<data name="SelectCategory" xml:space="preserve"><value>Выберите категорию</value></data>
+	<data name="SelectDuration" xml:space="preserve"><value>Выберите продолжительность</value></data>
+	<data name="BestTours" xml:space="preserve"><value>Лучшие предложения туров</value></data>
+	<data name="FeaturedTours" xml:space="preserve"><value>Избранные туры</value></data>
+	<data name="Booking" xml:space="preserve"><value>Бронирование</value></data>
+	<data name="BookingTitle" xml:space="preserve"><value>Оформить бронь</value></data>
+	<data name="Name" xml:space="preserve"><value>Имя</value></data>
+	<data name="Surname" xml:space="preserve"><value>Фамилия</value></data>
+	<data name="Email" xml:space="preserve"><value>Электронная почта</value></data>
+	<data name="Phone" xml:space="preserve"><value>Телефон</value></data>
+	<data name="SelectTour" xml:space="preserve"><value>Выберите тур</value></data>
+	<data name="BookingDate" xml:space="preserve"><value>Дата бронирования</value></data>
+	<data name="Submit" xml:space="preserve"><value>Отправить</value></data>
+	<data name="Reviews" xml:space="preserve"><value>Отзывы</value></data>
+	<data name="HappyClients" xml:space="preserve"><value>Счастливые клиенты</value></data>
+	<data name="AboutUs" xml:space="preserve"><value>О нас</value></data>
+	<data name="Categories" xml:space="preserve"><value>Категории</value></data>
+	<data name="QuickLinks" xml:space="preserve"><value>Быстрые ссылки</value></data>
+	<data name="Newsletter" xml:space="preserve"><value>Рассылка</value></data>
+	<data name="Subscribe" xml:space="preserve"><value>Подписаться</value></data>
+	<data name="AllRights" xml:space="preserve"><value>Все права защищены.</value></data>
+	<data name="TopDestinations" xml:space="preserve"><value>Лучшие направления</value></data>
+	<data name="ExploreDestinations" xml:space="preserve"><value>Исследуйте лучшие направления</value></data>
+	<data name="LastMinute" xml:space="preserve"><value>Горящие предложения</value></data>
+	<data name="TopDeals" xml:space="preserve"><value>Лучшие предложения</value></data>
+	<data name="SpecialOffers" xml:space="preserve"><value>Специальные предложения и скидки</value></data>
+	<data name="TourGuides" xml:space="preserve"><value>Туристические гиды</value></data>
+	<data name="MeetGuides" xml:space="preserve"><value>Встречайте гидов</value></data>
+	<data name="YearsExp" xml:space="preserve"><value>Лет опыта</value></data>
+	<data name="TourPackages" xml:space="preserve"><value>Турпакеты</value></data>
+	<data name="HappyCustomers" xml:space="preserve"><value>Довольные клиенты</value></data>
+	<data name="FollowInstagram" xml:space="preserve"><value>Следите за нами в Instagram</value></data>
+	<data name="RecentArticles" xml:space="preserve"><value>Последние статьи и публикации</value></data>
+	<data name="BlogOffers" xml:space="preserve"><value>Наш блог</value></data>
+	<data name="ReadMore" xml:space="preserve"><value>Читать далее</value></data>
+	<data name="PerPerson" xml:space="preserve"><value>С человека</value></data>
+	<data name="BookingSuccess" xml:space="preserve"><value>Ваша бронь успешно получена!</value></data>
+</root>
