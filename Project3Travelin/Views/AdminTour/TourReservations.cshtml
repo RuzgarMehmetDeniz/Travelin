@@ -1,0 +1,335 @@
+﻿@model List<Project3Travelin.Dtos.BookingDtos.GetBookingByIdDto>
+@{
+    Layout = "~/Views/Shared/_TourLayout.cshtml";
+    string tourId = ViewBag.TourId;
+    string tourTitle = Model.FirstOrDefault()?.TourTitle ?? "Tur";
+}
+
+@section Styles {
+    <style>
+        .page-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #1a202c;
+            letter-spacing: -.03em;
+            line-height: 1;
+        }
+
+        .breadcrumb {
+            margin: 0;
+            padding: 0;
+            background: none;
+        }
+
+        .breadcrumb-item {
+            font-size: .8rem;
+        }
+
+            .breadcrumb-item a {
+                color: #2563eb;
+                text-decoration: none;
+            }
+
+            .breadcrumb-item.active {
+                color: #718096;
+            }
+
+        .table-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
+        }
+
+        .table-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.1rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: .75rem;
+        }
+
+            .table-card-header .title {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: .95rem;
+                color: #1a202c;
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+            }
+
+        .booking-count {
+            background: #eff6ff;
+            color: #2563eb;
+            font-size: .72rem;
+            font-weight: 600;
+            padding: .2rem .6rem;
+            border-radius: 20px;
+        }
+
+        .bookings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .bookings-table thead th {
+                background: #f8fafc;
+                font-size: .72rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: .06em;
+                color: #718096;
+                padding: .85rem 1rem;
+                border-bottom: 1px solid #e2e8f0;
+                white-space: nowrap;
+            }
+
+            .bookings-table tbody tr {
+                transition: background .12s;
+                border-bottom: 1px solid #f0f4f8;
+            }
+
+                .bookings-table tbody tr:last-child {
+                    border-bottom: none;
+                }
+
+                .bookings-table tbody tr:hover {
+                    background: #f8fafc;
+                }
+
+            .bookings-table tbody td {
+                padding: .85rem 1rem;
+                vertical-align: middle;
+                font-size: .875rem;
+                color: #2d3748;
+            }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: .8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .name-cell {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+
+        .full-name {
+            font-weight: 600;
+            color: #1a202c;
+            font-size: .875rem;
+        }
+
+        .contact-cell {
+            font-size: .82rem;
+            color: #4a5568;
+        }
+
+            .contact-cell i {
+                color: #a0aec0;
+                margin-right: .3rem;
+            }
+
+        .date-cell {
+            font-size: .82rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .id-cell {
+            font-size: .75rem;
+            color: #a0aec0;
+            font-family: monospace;
+            background: #f8fafc;
+            padding: .2rem .5rem;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .empty-state {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #a0aec0;
+        }
+
+            .empty-state i {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                display: block;
+            }
+
+            .empty-state p {
+                font-size: .9rem;
+            }
+
+        .pagination-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .page-info {
+            font-size: .8rem;
+            color: #718096;
+        }
+
+        @@media (max-width: 991px) {
+            .bookings-table thead {
+                display: none;
+            }
+
+            .bookings-table tbody tr {
+                display: flex;
+                flex-wrap: wrap;
+                padding: 1rem;
+                border: 1px solid #e2e8f0;
+                border-radius: 10px;
+                margin: .75rem 1rem;
+                gap: .4rem;
+            }
+
+            .bookings-table tbody td {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+                padding: .3rem 0;
+                border: none;
+                width: 100%;
+            }
+
+                .bookings-table tbody td::before {
+                    content: attr(data-label);
+                    font-size: .7rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: .05em;
+                    color: #a0aec0;
+                    min-width: 90px;
+                    flex-shrink: 0;
+                }
+        }
+    </style>
+}
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Rezervasyonlar</h1>
+        <nav aria-label="breadcrumb" class="mt-2">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item"><a href="/AdminTour/TourList">Turlar</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@tourTitle</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="/AdminTour/TourList"
+           class="btn btn-outline-secondary d-flex align-items-center gap-2"
+           style="border-radius:10px;font-size:.875rem;font-weight:600;padding:.55rem 1.1rem;">
+            <i class="bi bi-arrow-left"></i> Geri
+        </a>
+        <a href="/AdminTour/ExportReservationsExcel/@tourId"
+           class="btn btn-success d-flex align-items-center gap-2"
+           style="border-radius:10px;font-size:.875rem;font-weight:600;padding:.55rem 1.1rem;">
+            <i class="bi bi-file-earmark-excel"></i> Excel İndir
+        </a>
+    </div>
+</div>
+
+<!-- TABLE CARD -->
+<div class="table-card">
+    <div class="table-card-header">
+        <div class="title">
+            <i class="bi bi-person-lines-fill" style="color:#a0aec0;"></i>
+            @tourTitle — Rezervasyonlar
+            <span class="booking-count">@Model.Count rezervasyon</span>
+        </div>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="empty-state">
+            <i class="bi bi-calendar-x"></i>
+            <p>Bu tura ait henüz rezervasyon bulunmuyor.</p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="bookings-table">
+                <thead>
+                    <tr>
+                        <th>Rezervasyon ID</th>
+                        <th>Ad Soyad</th>
+                        <th>E-posta</th>
+                        <th>Telefon</th>
+                        <th>Rezervasyon Tarihi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var b in Model)
+                    {
+                        <tr>
+                            <td data-label="ID">
+                                <span class="id-cell">@b.BookingId</span>
+                            </td>
+                            <td data-label="Ad Soyad">
+                                <div class="name-cell">
+                                    <div class="avatar">
+                                        @b.Name.Substring(0, 1).ToUpper()@b.Surname.Substring(0, 1).ToUpper()
+                                    </div>
+                                    <span class="full-name">@b.Name @b.Surname</span>
+                                </div>
+                            </td>
+                            <td data-label="E-posta">
+                                <span class="contact-cell">
+                                    <i class="bi bi-envelope"></i>@b.Email
+                                </span>
+                            </td>
+                            <td data-label="Telefon">
+                                <span class="contact-cell">
+                                    <i class="bi bi-telephone"></i>@b.Phone
+                                </span>
+                            </td>
+                            <td data-label="Tarih">
+                                <span class="date-cell">
+                                    <i class="bi bi-calendar3 me-1 text-muted"></i>@b.BookingDate.ToString("dd.MM.yyyy")
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination-wrapper">
+            <span class="page-info">Toplam <strong>@Model.Count</strong> rezervasyon gösteriliyor</span>
+        </div>
+    }
+</div>

@@ -10,5 +10,6 @@ namespace Project3Travelin.Services.BookingServices
         Task UpdateBookingAsync(UpdateBookingDto updateBookingDto);
         Task DeleteBookingAsync(string id);
         Task<GetBookingByIdDto> GetBookingByIdAsync(string id);
+        Task<List<GetBookingByIdDto>> GetBookingsByTourIdAsync(string tourId);
     }
 }

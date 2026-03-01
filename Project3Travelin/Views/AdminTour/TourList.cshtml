@@ -1,4 +1,4 @@
-﻿@model List<ResultTourDto>
+﻿@model List<Project3Travelin.Dtos.TourDtos.ResultTourDto>
 @{
     Layout = "~/Views/Shared/_TourLayout.cshtml";
     string q = Context.Request.Query["q"];
@@ -8,294 +8,404 @@
 }
 
 @section Styles {
-<style>
-    .page-header {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .page-title {
-        font-family: var(--font-display);
-        font-size: 1.6rem;
-        font-weight: 800;
-        color: #1a202c;
-        letter-spacing: -.03em;
-        line-height: 1;
-    }
-
-    .breadcrumb { margin: 0; padding: 0; background: none; }
-    .breadcrumb-item { font-size: .8rem; }
-    .breadcrumb-item a { color: #2563eb; text-decoration: none; }
-    .breadcrumb-item.active { color: #718096; }
-
-    .filter-card {
-        background: #fff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 1.25rem 1.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 1px 4px rgba(0,0,0,.04);
-    }
-
-    .table-card {
-        background: #fff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 2px 12px rgba(0,0,0,.06);
-    }
-
-    .table-card-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1.1rem 1.5rem;
-        border-bottom: 1px solid #e2e8f0;
-        flex-wrap: wrap;
-        gap: .75rem;
-    }
-
-    .table-card-header .title {
-        font-family: var(--font-display);
-        font-weight: 700;
-        font-size: .95rem;
-        color: #1a202c;
-        display: flex;
-        align-items: center;
-        gap: .5rem;
-    }
-
-    .tour-count {
-        background: #eff6ff;
-        color: #2563eb;
-        font-size: .72rem;
-        font-weight: 600;
-        padding: .2rem .6rem;
-        border-radius: 20px;
-    }
-
-    /* TABLE */
-    .tours-table { width: 100%; border-collapse: collapse; }
-
-    .tours-table thead th {
-        background: #f8fafc;
-        font-size: .72rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: .06em;
-        color: #718096;
-        padding: .85rem 1rem;
-        border-bottom: 1px solid #e2e8f0;
-        white-space: nowrap;
-    }
-
-    .tours-table tbody tr {
-        transition: background .12s;
-        border-bottom: 1px solid #f0f4f8;
-    }
-
-    .tours-table tbody tr:last-child { border-bottom: none; }
-
-    .tours-table tbody tr:hover { background: #f8fafc; }
-
-    .tours-table tbody td {
-        padding: .85rem 1rem;
-        vertical-align: middle;
-        font-size: .875rem;
-        color: #2d3748;
-    }
-
-    /* THUMBNAIL */
-    .tour-thumb {
-        width: 76px;
-        height: 76px;
-        object-fit: cover;
-        border-radius: 10px;
-        border: 2px solid #e2e8f0;
-        display: block;
-    }
-
-    .thumb-placeholder {
-        width: 76px;
-        height: 76px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #e2e8f0, #cbd5e0);
-        display: grid;
-        place-items: center;
-        color: #a0aec0;
-        font-size: 1.5rem;
-        border: 2px solid #e2e8f0;
-    }
-
-    /* TITLE CELL */
-    .tour-title {
-        font-weight: 600;
-        color: #1a202c;
-        font-size: .9rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 200px;
-    }
-
-    /* BADGE */
-    .loc-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: .3rem;
-        font-size: .78rem;
-        color: #4a5568;
-    }
-
-    .loc-badge i { color: #a0aec0; font-size: .85rem; }
-
-    .date-cell {
-        font-size: .82rem;
-        font-weight: 500;
-        color: #2d3748;
-        white-space: nowrap;
-    }
-
-    .duration-pill {
-        background: #fef3c7;
-        color: #92400e;
-        font-size: .73rem;
-        font-weight: 600;
-        padding: .2rem .65rem;
-        border-radius: 20px;
-        white-space: nowrap;
-    }
-
-    .cap-cell {
-        display: flex;
-        align-items: center;
-        gap: .35rem;
-        font-size: .82rem;
-        font-weight: 500;
-    }
-
-    .cap-cell i { color: #a0aec0; }
-
-    .desc-cell {
-        max-width: 220px;
-        font-size: .8rem;
-        color: #718096;
-        line-height: 1.5;
-    }
-
-    /* ACTION BUTTONS */
-    .action-group { display: flex; align-items: center; gap: .35rem; flex-wrap: nowrap; }
-
-    .btn-action {
-        width: 32px; height: 32px;
-        border-radius: 8px;
-        display: grid;
-        place-items: center;
-        border: none;
-        cursor: pointer;
-        font-size: .85rem;
-        transition: all .15s;
-        text-decoration: none;
-        flex-shrink: 0;
-    }
-
-    .btn-edit  { background: #fffbeb; color: #d97706; }
-    .btn-edit:hover  { background: #fde68a; color: #92400e; }
-    .btn-delete { background: #fff5f5; color: #e53e3e; }
-    .btn-delete:hover { background: #fed7d7; color: #c53030; }
-    .btn-detail { background: #ebf8ff; color: #2b6cb0; }
-    .btn-detail:hover { background: #bee3f8; color: #2c5282; }
-
-    /* PAGINATION */
-    .pagination-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem 1.5rem;
-        border-top: 1px solid #e2e8f0;
-        flex-wrap: wrap;
-        gap: .75rem;
-    }
-
-    .page-info { font-size: .8rem; color: #718096; }
-
-    .pagination { margin: 0; }
-    .page-link {
-        border-radius: 8px !important;
-        border: 1px solid #e2e8f0;
-        color: #4a5568;
-        font-size: .8rem;
-        font-weight: 500;
-        padding: .35rem .65rem;
-        margin: 0 2px;
-        transition: all .12s;
-    }
-    .page-link:hover { background: #f7fafc; border-color: #cbd5e0; color: #1a202c; }
-    .page-item.active .page-link { background: #2563eb; border-color: #2563eb; color: #fff; }
-    .page-item.disabled .page-link { opacity: .45; }
-
-    /* EMPTY STATE */
-    .empty-state {
-        padding: 4rem 2rem;
-        text-align: center;
-        color: #a0aec0;
-    }
-
-    .empty-state i { font-size: 3rem; margin-bottom: 1rem; display: block; }
-    .empty-state p { font-size: .9rem; }
-
-    /* RESPONSIVE */
-    @@media (max-width: 991px) {
-        .tours-table thead { display: none; }
-        .tours-table tbody tr {
+    <style>
+        .page-header {
             display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
             flex-wrap: wrap;
-            padding: 1rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            margin: .75rem 1rem;
-            gap: .5rem;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
-        .tours-table tbody tr:hover { background: #f8fafc; }
-        .tours-table tbody td {
+
+        .page-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #1a202c;
+            letter-spacing: -.03em;
+            line-height: 1;
+        }
+
+        .breadcrumb {
+            margin: 0;
+            padding: 0;
+            background: none;
+        }
+
+        .breadcrumb-item {
+            font-size: .8rem;
+        }
+
+            .breadcrumb-item a {
+                color: #2563eb;
+                text-decoration: none;
+            }
+
+            .breadcrumb-item.active {
+                color: #718096;
+            }
+
+        .filter-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 4px rgba(0,0,0,.04);
+        }
+
+        .table-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
+        }
+
+        .table-card-header {
             display: flex;
             align-items: center;
-            gap: .5rem;
-            padding: .3rem 0;
-            border: none;
-            width: 100%;
-            font-size: .85rem;
+            justify-content: space-between;
+            padding: 1.1rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: .75rem;
         }
-        .tours-table tbody td::before {
-            content: attr(data-label);
-            font-size: .7rem;
+
+            .table-card-header .title {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: .95rem;
+                color: #1a202c;
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+            }
+
+        .tour-count {
+            background: #eff6ff;
+            color: #2563eb;
+            font-size: .72rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: .05em;
+            padding: .2rem .6rem;
+            border-radius: 20px;
+        }
+
+        .tours-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .tours-table thead th {
+                background: #f8fafc;
+                font-size: .72rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: .06em;
+                color: #718096;
+                padding: .85rem 1rem;
+                border-bottom: 1px solid #e2e8f0;
+                white-space: nowrap;
+            }
+
+            .tours-table tbody tr {
+                transition: background .12s;
+                border-bottom: 1px solid #f0f4f8;
+            }
+
+                .tours-table tbody tr:last-child {
+                    border-bottom: none;
+                }
+
+                .tours-table tbody tr:hover {
+                    background: #f8fafc;
+                }
+
+            .tours-table tbody td {
+                padding: .85rem 1rem;
+                vertical-align: middle;
+                font-size: .875rem;
+                color: #2d3748;
+            }
+
+        .tour-thumb {
+            width: 76px;
+            height: 76px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            display: block;
+        }
+
+        .thumb-placeholder {
+            width: 76px;
+            height: 76px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e0);
+            display: grid;
+            place-items: center;
             color: #a0aec0;
-            min-width: 90px;
+            font-size: 1.5rem;
+            border: 2px solid #e2e8f0;
+        }
+
+        .tour-title {
+            font-weight: 600;
+            color: #1a202c;
+            font-size: .9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+
+        .loc-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            font-size: .78rem;
+            color: #4a5568;
+        }
+
+            .loc-badge i {
+                color: #a0aec0;
+                font-size: .85rem;
+            }
+
+        .date-cell {
+            font-size: .82rem;
+            font-weight: 500;
+            color: #2d3748;
+            white-space: nowrap;
+        }
+
+        .duration-pill {
+            background: #fef3c7;
+            color: #92400e;
+            font-size: .73rem;
+            font-weight: 600;
+            padding: .2rem .65rem;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .cap-cell {
+            display: flex;
+            align-items: center;
+            gap: .35rem;
+            font-size: .82rem;
+            font-weight: 500;
+        }
+
+            .cap-cell i {
+                color: #a0aec0;
+            }
+
+        .desc-cell {
+            max-width: 220px;
+            font-size: .8rem;
+            color: #718096;
+            line-height: 1.5;
+        }
+
+        .action-group {
+            display: flex;
+            align-items: center;
+            gap: .35rem;
+            flex-wrap: nowrap;
+        }
+
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            border: none;
+            cursor: pointer;
+            font-size: .85rem;
+            transition: all .15s;
+            text-decoration: none;
             flex-shrink: 0;
         }
-        td[data-label=""] { justify-content: center; }
-        td[data-label=""] ::before { display: none; }
-        .td-image { order: -1; justify-content: center; }
-        .td-image::before { display: none; }
-        .tour-title { white-space: normal; max-width: none; }
-        .desc-cell { max-width: none; }
-        .action-group { width: 100%; justify-content: flex-end; }
-    }
 
-    @@media (max-width: 575px) {
-        .page-header { flex-direction: column; }
-        .filter-card .row .col-md-2,
-        .filter-card .row .col-md-3,
-        .filter-card .row .col-md-4 { margin-bottom: .5rem; }
-    }
-</style>
+        .btn-edit {
+            background: #fffbeb;
+            color: #d97706;
+        }
+
+            .btn-edit:hover {
+                background: #fde68a;
+                color: #92400e;
+            }
+
+        .btn-delete {
+            background: #fff5f5;
+            color: #e53e3e;
+        }
+
+            .btn-delete:hover {
+                background: #fed7d7;
+                color: #c53030;
+            }
+
+        .btn-detail {
+            background: #ebf8ff;
+            color: #2b6cb0;
+        }
+
+            .btn-detail:hover {
+                background: #bee3f8;
+                color: #2c5282;
+            }
+
+        .btn-reserv {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+            .btn-reserv:hover {
+                background: #bbf7d0;
+                color: #15803d;
+            }
+
+        .pagination-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: .75rem;
+        }
+
+        .page-info {
+            font-size: .8rem;
+            color: #718096;
+        }
+
+        .pagination {
+            margin: 0;
+        }
+
+        .page-link {
+            border-radius: 8px !important;
+            border: 1px solid #e2e8f0;
+            color: #4a5568;
+            font-size: .8rem;
+            font-weight: 500;
+            padding: .35rem .65rem;
+            margin: 0 2px;
+            transition: all .12s;
+        }
+
+            .page-link:hover {
+                background: #f7fafc;
+                border-color: #cbd5e0;
+                color: #1a202c;
+            }
+
+        .page-item.active .page-link {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: #fff;
+        }
+
+        .page-item.disabled .page-link {
+            opacity: .45;
+        }
+
+        .empty-state {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #a0aec0;
+        }
+
+            .empty-state i {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                display: block;
+            }
+
+            .empty-state p {
+                font-size: .9rem;
+            }
+
+        @@media (max-width: 991px) {
+            .tours-table thead {
+                display: none;
+            }
+
+            .tours-table tbody tr {
+                display: flex;
+                flex-wrap: wrap;
+                padding: 1rem;
+                border: 1px solid #e2e8f0;
+                border-radius: 10px;
+                margin: .75rem 1rem;
+                gap: .5rem;
+            }
+
+                .tours-table tbody tr:hover {
+                    background: #f8fafc;
+                }
+
+            .tours-table tbody td {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+                padding: .3rem 0;
+                border: none;
+                width: 100%;
+                font-size: .85rem;
+            }
+
+                .tours-table tbody td::before {
+                    content: attr(data-label);
+                    font-size: .7rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: .05em;
+                    color: #a0aec0;
+                    min-width: 90px;
+                    flex-shrink: 0;
+                }
+
+            td[data-label=""] {
+                justify-content: center;
+            }
+
+            .td-image {
+                order: -1;
+                justify-content: center;
+            }
+
+                .td-image::before {
+                    display: none;
+                }
+
+            .tour-title {
+                white-space: normal;
+                max-width: none;
+            }
+
+            .desc-cell {
+                max-width: none;
+            }
+
+            .action-group {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        @@media (max-width: 575px) {
+            .page-header {
+                flex-direction: column;
+            }
+        }
+    </style>
 }
 
 <!-- PAGE HEADER -->
@@ -309,7 +419,8 @@
             </ol>
         </nav>
     </div>
-    <a href="/AdminTour/CreateTour/" class="btn btn-primary d-flex align-items-center gap-2" style="border-radius:10px;font-size:.875rem;font-weight:600;padding:.55rem 1.1rem;">
+    <a href="/AdminTour/CreateTour/" class="btn btn-primary d-flex align-items-center gap-2"
+       style="border-radius:10px;font-size:.875rem;font-weight:600;padding:.55rem 1.1rem;">
         <i class="bi bi-plus-lg"></i> Yeni Tur Ekle
     </a>
 </div>
@@ -324,7 +435,8 @@
                     <span class="input-group-text bg-white border-end-0" style="border-radius:8px 0 0 8px;">
                         <i class="bi bi-search text-muted" style="font-size:.85rem;"></i>
                     </span>
-                    <input type="text" name="q" value="@q" class="form-control border-start-0 ps-1" placeholder="Tur adı veya şehir..." style="border-radius:0 8px 8px 0;" />
+                    <input type="text" name="q" value="@q" class="form-control border-start-0 ps-1"
+                           placeholder="Tur adı veya şehir..." style="border-radius:0 8px 8px 0;" />
                 </div>
             </div>
             <div class="col-6 col-md-2">
@@ -364,7 +476,7 @@
         <div class="title">
             <i class="bi bi-table" style="color:#a0aec0;"></i>
             Tüm Turlar
-            <span class="tour-count">@Model.Count  tur</span>
+            <span class="tour-count">@Model.Count tur</span>
         </div>
         <div class="d-flex align-items-center gap-2">
             <span style="font-size:.78rem;color:#a0aec0;">Sırala:</span>
@@ -382,7 +494,7 @@
         <div class="empty-state">
             <i class="bi bi-map"></i>
             <p>Gösterilecek tur bulunamadı.</p>
-            <a href="#" class="btn btn-primary btn-sm mt-2" style="border-radius:8px;">Yeni Tur Ekle</a>
+            <a href="/AdminTour/CreateTour/" class="btn btn-primary btn-sm mt-2" style="border-radius:8px;">Yeni Tur Ekle</a>
         </div>
     }
     else
@@ -441,22 +553,24 @@
                                 <div class="action-group">
                                     <a asp-action="UpdateTour" asp-route-id="@item.TourId"
                                        class="btn-action btn-edit"
-                                       aria-label="@item.Title turunu düzenle"
                                        title="Düzenle">
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                     <button type="button"
                                             class="btn-action btn-delete"
-                                            aria-label="@item.Title turunu sil"
                                             title="Sil"
                                             onclick="confirmDelete('@item.TourId', '@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(item.Title))')">
                                         <i class="bi bi-trash3"></i>
                                     </button>
                                     <a asp-action="Detail" asp-route-id="@item.TourId"
                                        class="btn-action btn-detail"
-                                       aria-label="@item.Title tur detayı"
                                        title="Detay">
                                         <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a asp-action="TourReservations" asp-route-id="@item.TourId"
+                                       class="btn-action btn-reserv"
+                                       title="Rezervasyonlar">
+                                        <i class="bi bi-person-lines-fill"></i>
                                     </a>
                                 </div>
                             </td>
@@ -466,7 +580,6 @@
             </table>
         </div>
 
-        <!-- PAGINATION -->
         <div class="pagination-wrapper">
             <span class="page-info">@Model.Count tur gösteriliyor</span>
         </div>
@@ -498,14 +611,12 @@
 </div>
 
 @section Scripts {
-<script>
-    function confirmDelete(tourId, tourTitle) {
-        document.getElementById('deleteModalBody').textContent =
-            '"' + tourTitle + '" adlı tur kalıcı olarak silinecek. Bu işlem geri alınamaz.';
+    <script>
+        function confirmDelete(tourId, tourTitle) {
+            document.getElementById('deleteModalBody').textContent =
+                '"' + tourTitle + '" adlı tur kalıcı olarak silinecek. Bu işlem geri alınamaz.';
             document.getElementById('deleteForm').action = '/AdminTour/DeleteTour/' + tourId;
-        new bootstrap.Modal(document.getElementById('deleteModal')).show();
-    }
-</script>
+            new bootstrap.Modal(document.getElementById('deleteModal')).show();
+        }
+    </script>
 }
-
-

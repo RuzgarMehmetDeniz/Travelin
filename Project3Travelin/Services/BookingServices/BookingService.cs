@@ -47,5 +47,10 @@ namespace Project3Travelin.Services.BookingServices
             var values = _mapper.Map<Booking>(updateBookingDto);
             await _BookingCollection.FindOneAndReplaceAsync(x => x.BookingId == updateBookingDto.BookingId, values);
         }
+        public async Task<List<GetBookingByIdDto>> GetBookingsByTourIdAsync(string tourId)
+        {
+            var values = await _BookingCollection.Find(x => x.TourId == tourId).ToListAsync();
+            return _mapper.Map<List<GetBookingByIdDto>>(values);
+        }
     }
 }
